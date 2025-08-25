@@ -8,17 +8,17 @@ interface ServiceCard {
 
 const serviceCards: ServiceCard[] = [
   {
-    src: "https://api.builder.io/api/v1/image/assets/9ac5b116d2de4a019ba47842cc0d1e27/ed2866e0a307d962d0be9c32dd7dc91750e7333d?placeholderIfAbsent=true",
+    src: "/image 4.png",
     alt: "Tailored Guidance",
     title: "Tailored\nGuidance"
   },
   {
-    src: "https://api.builder.io/api/v1/image/assets/9ac5b116d2de4a019ba47842cc0d1e27/5e930e3f2a04780627193cc59898914359db6d9f?placeholderIfAbsent=true",
+    src: "/image 5.png",
     alt: "Skill Evaluations",
     title: "Skill\nEvaluations"
   },
   {
-    src: "https://api.builder.io/api/v1/image/assets/9ac5b116d2de4a019ba47842cc0d1e27/001803fe318e044843f122adcd09dd9100f8f23f?placeholderIfAbsent=true",
+    src: "/image 6.png",
     alt: "Personalized Approach",
     title: "Personalized\nApproach"
   }

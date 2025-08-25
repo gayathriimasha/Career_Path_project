@@ -28,14 +28,14 @@ export const TextQuestion: React.FC<TextQuestionProps> = ({
             {isShortAnswer ? (
                 <input
                     type={type}
-                    value={value}
+                    value={value || ''}
                     onChange={(e) => onChange(e.target.value)}
                     placeholder={placeholder}
                     className="w-full p-4 bg-white border border-gray-300 rounded-lg text-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white"
                 />
             ) : (
                 <textarea
-                    value={value}
+                    value={value || ''}
                     onChange={(e) => onChange(e.target.value)}
                     placeholder={placeholder}
                     rows={4}

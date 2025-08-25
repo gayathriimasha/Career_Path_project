@@ -28,7 +28,7 @@ export const NewsletterSection: React.FC = () => {
 
       <div className="flex items-end justify-end h-full" style={{ width: '610px', minHeight: '700px' }}>
         <img
-          src="https://api.builder.io/api/v1/image/assets/9ac5b116d2de4a019ba47842cc0d1e27/71d9af65f9e389bd14327500a57f321fb1b14730?placeholderIfAbsent=true"
+          src="/image 7.png"
           alt="Career Insights Illustration"
           className="rounded-[30px] object-cover"
           style={{

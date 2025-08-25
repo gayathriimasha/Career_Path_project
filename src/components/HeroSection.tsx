@@ -47,7 +47,7 @@ export const HeroSection: React.FC = () => {
         <div className="flex gap-4 items-center" style={{ width: '63%', justifyContent: 'flex-end', transform: 'translateY(-15px)' }}>
           <div className="bg-gray-100 rounded-[20px] overflow-hidden cursor-pointer" style={{ width: '30%', height: '460px' }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/9ac5b116d2de4a019ba47842cc0d1e27/11293ceed2b2436e3d0e98f443d47e7c28d5a363?placeholderIfAbsent=true"
+              src="/image 1.png"
               alt="Career Assessment"
               className="w-full h-full object-cover"
             />
@@ -55,7 +55,7 @@ export const HeroSection: React.FC = () => {
 
           <div className="bg-gray-100 rounded-[20px] overflow-hidden cursor-pointer shadow-lg" style={{ width: '35%', height: '480px' }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/9ac5b116d2de4a019ba47842cc0d1e27/8c9a2756a6f28c1390e62220577cd8a42063a079?placeholderIfAbsent=true"
+              src="/image 2.png"
               alt="Skills Development"
               className="w-full h-full object-cover"
             />
@@ -63,7 +63,7 @@ export const HeroSection: React.FC = () => {
 
           <div className="bg-gray-100 rounded-[20px] overflow-hidden cursor-pointer" style={{ width: '30%', height: '460px' }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/9ac5b116d2de4a019ba47842cc0d1e27/e37c9435b428f9ce24d26b2efe09087627e4f3d2?placeholderIfAbsent=true"
+              src="/image 3.png"
               alt="Career Guidance"
               className="w-full h-full object-cover"
             />

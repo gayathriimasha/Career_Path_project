@@ -25,11 +25,13 @@ export default function Register() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
+    setFormData(prevData => ({
+      ...prevData,
       [name]: value,
     }))
-    setError(null) // Clear error on input change
+    if (error) {
+      setError(null) // Clear error on input change
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {

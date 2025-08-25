@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Question, Answer } from "../types/question";
@@ -35,6 +35,46 @@ const motionVariants = {
     })
 };
 
+// Move these components outside to prevent re-creation on every render
+interface StyledQuestionContainerProps {
+    question: string;
+    children: React.ReactNode;
+    isLastQuestion?: boolean;
+}
+
+const StyledQuestionContainer: React.FC<StyledQuestionContainerProps> = ({ question, children, isLastQuestion }) => (
+    <div className="flex flex-col justify-start items-start gap-[40px]">
+        <div className="w-full text-black text-[28px] font-normal font-['Questrial'] leading-tight">
+            {question}
+        </div>
+        <div className={isLastQuestion ? "w-full grid grid-cols-3 gap-[15px]" : "w-full flex flex-col gap-[15px]"}>
+            {children}
+        </div>
+    </div>
+);
+
+interface StyledTextQuestionProps {
+    question: string;
+    value: string;
+    onChange: (value: string) => void;
+    type: string;
+    placeholder: string;
+}
+
+const StyledTextQuestion: React.FC<StyledTextQuestionProps> = React.memo(({ question, value, onChange, type, placeholder }) => (
+    <StyledQuestionContainer question={question}>
+        <input
+            type={type}
+            value={value || ''}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder={placeholder}
+            className="w-full h-[60px] px-[19px] py-[22px] rounded-[15px] bg-[#E0E3E4] border-none outline-none text-black text-[17px] font-normal font-['Questrial'] box-border"
+        />
+    </StyledQuestionContainer>
+));
+
+StyledTextQuestion.displayName = 'StyledTextQuestion';
+
 export default function Questionnaire() {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [direction, setDirection] = useState<number>(1);
@@ -51,14 +91,13 @@ export default function Questionnaire() {
         return answer?.value || (currentQuestion.type === 'checkbox' ? [] : '');
     };
 
-    const setAnswer = (questionId: number, value: string | string[]) => {
-        const newAnswers = answers.filter(a => a.questionId !== questionId);
-        newAnswers.push({ questionId, value });
-        setAnswers(newAnswers);
-        if (submitError) {
-            setSubmitError("");
-        }
-    };
+    const setAnswer = useCallback((questionId: number, value: string | string[]) => {
+        setAnswers(prevAnswers => {
+            const filteredAnswers = prevAnswers.filter(a => a.questionId !== questionId);
+            return [...filteredAnswers, { questionId, value }];
+        });
+        setSubmitError("");
+    }, []);
 
     const canProceed = (): boolean => {
         const answer = getAnswer(currentQuestion.id);
@@ -147,127 +186,29 @@ export default function Questionnaire() {
         setDirection(1);
     };
 
-    interface BaseQuestionProps {
-        question: string;
-    }
+    // Create memoized onChange handlers to prevent re-renders
+    const handleTextChange = useCallback((value: string) => {
+        setAnswer(currentQuestion.id, value);
+    }, [currentQuestion.id, setAnswer]);
 
-    interface RadioQuestionProps extends BaseQuestionProps {
-        options: string[];
-        selectedValue: string;
-        onSelect: (value: string) => void;
-    }
+    const handleRadioChange = useCallback((value: string) => {
+        setAnswer(currentQuestion.id, value);
+    }, [currentQuestion.id, setAnswer]);
 
-    interface TextQuestionProps extends BaseQuestionProps {
-        value: string;
-        onChange: (value: string) => void;
-        type: string;
-        placeholder: string;
-    }
-
-    interface CheckboxQuestionProps extends BaseQuestionProps {
-        options: string[];
-        selectedValues: string[];
-        onSelect: (values: string[]) => void;
-    }
-
-    const StyledQuestionContainer: React.FC<{ question: string; children: React.ReactNode; isLastQuestion?: boolean }> = ({ question, children, isLastQuestion }) => (
-        <div className="flex flex-col justify-start items-start gap-[40px]">
-            <div className="w-full text-black text-[28px] font-normal font-['Questrial'] leading-tight">
-                {question}
-            </div>
-            <div className={isLastQuestion ? "w-full grid grid-cols-3 gap-[15px]" : "w-full flex flex-col gap-[15px]"}>
-                {children}
-            </div>
-        </div>
-    );
-
-    const StyledRadioQuestion: React.FC<RadioQuestionProps> = ({ question, options, selectedValue, onSelect }) => {
-        const isLastQuestion = currentIndex === questionsData.length - 1;
-        
-        return (
-            <StyledQuestionContainer question={question} isLastQuestion={isLastQuestion}>
-                {options.map((option: string, index: number) => (
-                    <div 
-                        key={index}
-                        onClick={() => onSelect(option)}
-                        className={`${commonStyles.questionBox} ${
-                            selectedValue === option ? 'bg-[#A9DFC1]' : 'bg-[#E0E3E4]'
-                        }`}
-                    >
-                        <div className={`${commonStyles.questionText} ${
-                            selectedValue === option ? 'text-black' : 'text-black/50'
-                        }`}>
-                            {option}
-                        </div>
-                    </div>
-                ))}
-            </StyledQuestionContainer>
-        );
-    };
-
-    const StyledTextQuestion: React.FC<TextQuestionProps> = ({ question, value, onChange, type, placeholder }) => (
-        <StyledQuestionContainer question={question}>
-            <input
-                type={type}
-                value={value}
-                onChange={(e) => onChange?.(e.target.value)}
-                placeholder={placeholder}
-                className={`${commonStyles.questionBox} bg-[#E0E3E4] border-none outline-none text-black box-border`}
-            />
-        </StyledQuestionContainer>
-    );
-
-    const StyledCheckboxQuestion: React.FC<CheckboxQuestionProps> = ({ question, options, selectedValues, onSelect }) => {
-        const isLastQuestion = currentIndex === questionsData.length - 1;
-        
-        return (
-            <StyledQuestionContainer question={question} isLastQuestion={isLastQuestion}>
-                {options.map((option: string, index: number) => {
-                    const isSelected = selectedValues.includes(option);
-                    return (
-                        <div 
-                            key={index}
-                            onClick={() => {
-                                const newValues = isSelected 
-                                    ? selectedValues.filter((v: string) => v !== option)
-                                    : [...selectedValues, option];
-                                onSelect(newValues);
-                            }}
-                            className={`${commonStyles.questionBox} ${
-                                isSelected ? 'bg-[#A9DFC1]' : 'bg-[#E0E3E4]'
-                            }`}
-                        >
-                            <div className={`${commonStyles.questionText} ${
-                                isSelected ? 'text-black' : 'text-black/50'
-                            }`}>
-                                {option}
-                            </div>
-                        </div>
-                    );
-                })}
-            </StyledQuestionContainer>
-        );
-    };
+    const handleCheckboxChange = useCallback((values: string[]) => {
+        setAnswer(currentQuestion.id, values);
+    }, [currentQuestion.id, setAnswer]);
 
     const renderQuestion = () => {
         const answer = getAnswer(currentQuestion.id);
         
         switch (currentQuestion.type) {
-            case 'radio':
-                return (
-                    <StyledRadioQuestion
-                        question={currentQuestion.text}
-                        options={currentQuestion.options || []}
-                        selectedValue={answer as string}
-                        onSelect={(value: string) => setAnswer(currentQuestion.id, value)}
-                    />
-                );
             case 'text':
                 return (
                     <StyledTextQuestion
                         question={currentQuestion.text}
                         value={answer as string}
-                        onChange={(value: string) => setAnswer(currentQuestion.id, value)}
+                        onChange={handleTextChange}
                         type={currentQuestion.id === 2 ? 'email' : 'text'}
                         placeholder={
                             currentQuestion.id === 1 ? "Enter your full name" :
@@ -276,14 +217,56 @@ export default function Questionnaire() {
                         }
                     />
                 );
-            case 'checkbox':
+            case 'radio':
+                const isLastQuestion = currentIndex === questionsData.length - 1;
                 return (
-                    <StyledCheckboxQuestion
-                        question={currentQuestion.text}
-                        options={currentQuestion.options || []}
-                        selectedValues={answer as string[]}
-                        onSelect={(values: string[]) => setAnswer(currentQuestion.id, values)}
-                    />
+                    <StyledQuestionContainer question={currentQuestion.text} isLastQuestion={isLastQuestion}>
+                        {(currentQuestion.options || []).map((option: string, index: number) => (
+                            <div 
+                                key={index}
+                                onClick={() => handleRadioChange(option)}
+                                className={`${commonStyles.questionBox} ${
+                                    answer === option ? 'bg-[#A9DFC1]' : 'bg-[#E0E3E4]'
+                                }`}
+                            >
+                                <div className={`${commonStyles.questionText} ${
+                                    answer === option ? 'text-black' : 'text-black/50'
+                                }`}>
+                                    {option}
+                                </div>
+                            </div>
+                        ))}
+                    </StyledQuestionContainer>
+                );
+            case 'checkbox':
+                const isLastQuestionCheckbox = currentIndex === questionsData.length - 1;
+                return (
+                    <StyledQuestionContainer question={currentQuestion.text} isLastQuestion={isLastQuestionCheckbox}>
+                        {(currentQuestion.options || []).map((option: string, index: number) => {
+                            const isSelected = Array.isArray(answer) && answer.includes(option);
+                            return (
+                                <div 
+                                    key={index}
+                                    onClick={() => {
+                                        const currentValues = Array.isArray(answer) ? answer : [];
+                                        const newValues = isSelected 
+                                            ? currentValues.filter((v: string) => v !== option)
+                                            : [...currentValues, option];
+                                        handleCheckboxChange(newValues);
+                                    }}
+                                    className={`${commonStyles.questionBox} ${
+                                        isSelected ? 'bg-[#A9DFC1]' : 'bg-[#E0E3E4]'
+                                    }`}
+                                >
+                                    <div className={`${commonStyles.questionText} ${
+                                        isSelected ? 'text-black' : 'text-black/50'
+                                    }`}>
+                                        {option}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </StyledQuestionContainer>
                 );
             default:
                 return null;
