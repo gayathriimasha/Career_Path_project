@@ -30,4 +30,13 @@ dist-ssr
 .env
 .env.development
 .env.test
-.env.production 
+.env.production
+
+# Python ML
+ml/env/
+ml/__pycache__/
+ml/src/__pycache__/
+ml/models/*.joblib
+ml/models/*.pkl
+*.pyc
+__pycache__/

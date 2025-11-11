@@ -143,9 +143,9 @@ export default function Questionnaire() {
 
             const result = await response.json();
             console.log('Assessment submitted successfully:', result);
-            
+
             setIsCompleted(true);
-            navigate(`/results?email=${encodeURIComponent(userEmail)}`); // Navigate using React Router
+            navigate(`/results?assessmentId=${result.assessmentId}`); // Navigate using React Router
             
         } catch (error) {
             console.error('Error submitting assessment:', error);

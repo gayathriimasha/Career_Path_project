@@ -6,7 +6,8 @@ const dotenv = require("dotenv")
 // Import routes
 const questionRoutes = require("./routes/questions")
 const assessmentRoutes = require("./routes/assessments")
-const authRoutes = require("./routes/auth") // <-- Add this
+const authRoutes = require("./routes/auth")
+const mlRoutes = require("./routes/ml")
 
 // Load environment variables
 dotenv.config()
@@ -34,7 +35,8 @@ mongoose
 // Routes
 app.use("/api/questions", questionRoutes)
 app.use("/api/assessments", assessmentRoutes)
-app.use("/api/auth", authRoutes) // <-- Add this
+app.use("/api/auth", authRoutes)
+app.use("/api/ml", mlRoutes)
 
 // Basic route
 app.get("/", (req, res) => {

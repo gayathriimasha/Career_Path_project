@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(python src/preprocess_dataset.py:*)",
+      "Bash(python ml/src/preprocess_dataset.py:*)",
+      "Bash(python ml/src/train.py:*)",
+      "Bash(python:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

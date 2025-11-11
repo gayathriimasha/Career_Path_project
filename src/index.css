@@ -132,16 +132,33 @@ All colors MUST be HSL.
   .container-wide {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
+
   .text-gradient {
     @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
   }
-  
+
   .hover-lift {
     @apply transition-transform duration-300 hover:scale-[var(--app-hover-scale)];
   }
-  
+
   .focus-ring {
     @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
   }
+}
+
+/* Subtle blob animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-4px) translateX(2px);
+  }
+  66% {
+    transform: translateY(2px) translateX(-2px);
+  }
+}
+
+.animate-float {
+  animation: float 3.2s ease-in-out infinite;
 }
