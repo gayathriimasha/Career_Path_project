@@ -33,7 +33,9 @@ models = {}
 
 def load_models():
     """Load all trained artifacts on startup"""
-    model_dir = "ml/models"
+    # Get the project root directory (2 levels up from ml/src)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    model_dir = os.path.join(current_dir, "..", "models")
 
     if not os.path.exists(model_dir):
         raise RuntimeError(f"Models directory not found: {model_dir}")
@@ -45,7 +47,7 @@ def load_models():
     models['sub_classifiers'] = joblib.load(f"{model_dir}/sub_classifiers.pkl")
     models['feature_names'] = joblib.load(f"{model_dir}/feature_names.pkl")
 
-    print("✓ All models loaded successfully")
+    print("[OK] All models loaded successfully")
 
 @app.on_event("startup")
 async def startup_event():
@@ -263,13 +265,27 @@ def compute_classifier_probs(features: Dict) -> Dict[str, float]:
 
 def get_sub_track(main_career: str, features: Dict) -> str:
     """Predict sub-track for a given main career"""
+    SUB_TRACKS = {
+        "Software Engineering": ["Frontend", "Backend", "Mobile", "DevOps", "QA/Automation"],
+        "Data & AI": ["Data Scientist", "ML Engineer", "Data Analyst", "NLP", "Computer Vision"],
+        "Core Engineering": ["Mechanical", "Electrical/Electronics", "Civil", "Mechatronics/Robotics", "Industrial"],
+        "Medicine & Health": ["Medicine", "Nursing", "Pharmacy", "Biomed", "Public Health"],
+        "Business & Finance": ["Accounting", "Corporate Finance", "Investment/Trading", "Operations", "HR"],
+        "Marketing & Communications": ["Digital Marketing", "Content/Copy", "Brand", "PR/Comms", "Growth/SEO"],
+        "Design & Media": ["Product/UI", "Graphic/Brand", "3D/CGI", "Film/Video", "Illustration"],
+        "Science & Research": ["Physics", "Chemistry", "Biology", "Psychology", "Environmental"],
+        "Law & Public Policy": ["Corporate Law", "Public Policy", "Compliance", "Criminology", "International Relations"],
+        "Education & Training": ["K-12 Teacher", "Higher Ed", "Instructional Design", "Counseling", "EdTech"],
+        "Entrepreneurship & Management": ["Founder", "Product Mgmt", "Project Mgmt", "Operations Mgmt", "Strategy/Consulting"],
+        "Hospitality & Tourism": ["Hotel Mgmt", "Culinary", "Travel Ops", "Event Mgmt", "Customer Experience"]
+    }
+
     sub_classifiers = models['sub_classifiers']
     feature_names = models['feature_names']
     all_feats = feature_names['all']
 
     if main_career not in sub_classifiers:
         # Return first sub if no classifier
-        from train import SUB_TRACKS
         return SUB_TRACKS.get(main_career, ["General"])[0]
 
     X = np.array([features.get(f, 0) for f in all_feats]).reshape(1, -1)

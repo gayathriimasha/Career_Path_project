@@ -6,7 +6,21 @@
       "Bash(python ml/src/preprocess_dataset.py:*)",
       "Bash(python ml/src/train.py:*)",
       "Bash(python:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(timeout 5 python:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(timeout 3 curl:*)",
+      "Bash(npm ls:*)",
+      "Bash(node -e:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(timeout 5 curl:*)",
+      "Bash(nul)",
+      "Bash(node server.js:*)",
+      "Bash(.\\env\\Scripts\\activate)",
+      "Bash(uvicorn:*)",
+      "Bash(env/Scripts/python.exe:*)"
     ],
     "deny": [],
     "ask": []

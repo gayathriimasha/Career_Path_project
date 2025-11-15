@@ -4,7 +4,7 @@
 
 const axios = require('axios');
 
-const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8001';
+const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000';
 const REQUEST_TIMEOUT = 5000; // 5 seconds
 
 /**
@@ -54,12 +54,15 @@ async function scoreAssessment(payload) {
  */
 async function healthCheck() {
   try {
+    console.log(`[ML Health Check] Checking ${ML_SERVICE_URL}/health`);
     const response = await axios.get(
       `${ML_SERVICE_URL}/health`,
       { timeout: 2000 }
     );
+    console.log(`[ML Health Check] Response:`, response.data);
     return response.data.status === 'ok';
   } catch (error) {
+    console.log(`[ML Health Check] Error:`, error.message);
     return false;
   }
 }

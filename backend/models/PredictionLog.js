@@ -41,7 +41,7 @@ const predictionLogSchema = new mongoose.Schema(
 
 // Index for efficient querying
 predictionLogSchema.index({ timestamp: -1 });
-predictionLogSchema.index({ predictedCareer.main: 1 });
+predictionLogSchema.index({ "predictedCareer.main": 1 });
 predictionLogSchema.index({ userId: 1 });
 
 module.exports = mongoose.model("PredictionLog", predictionLogSchema);
