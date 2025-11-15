@@ -16,6 +16,7 @@ import Questionnaire from "./components/Questionnaire";
 // NEW: Import the ResultsPage component (assuming it's in src/ResultsPage.tsx)
 import ResultsPage from "../src/pages/ResultsPage";
 import StartAssessment from "./pages/StartAssessment";
+import SkillRoadmap from "./pages/SkillRoadmap";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/questionnaire" element={<Questionnaire />} />
           {/* NEW: Route for the results page */}
           <Route path="/results" element={<ResultsPage />} />
+          <Route path="/roadmap" element={<SkillRoadmap />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

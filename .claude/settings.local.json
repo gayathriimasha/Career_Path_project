@@ -20,7 +20,8 @@
       "Bash(node server.js:*)",
       "Bash(.\\env\\Scripts\\activate)",
       "Bash(uvicorn:*)",
-      "Bash(env/Scripts/python.exe:*)"
+      "Bash(env/Scripts/python.exe:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []

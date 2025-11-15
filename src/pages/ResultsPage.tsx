@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 
@@ -31,6 +31,7 @@ interface PredictionData {
 
 export default function ResultsPage() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const assessmentId = searchParams.get("assessmentId");
   const [prediction, setPrediction] = useState<PredictionData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -382,7 +383,11 @@ export default function ResultsPage() {
               Retake Assessment
             </Button>
           </Link>
-          <Button disabled className="min-w-[150px]" variant="secondary">
+          <Button
+            onClick={() => navigate(`/roadmap?career=${encodeURIComponent(topCareer.main)}&sub=${encodeURIComponent(topCareer.sub)}&assessmentId=${assessmentId}`)}
+            className="min-w-[150px]"
+            variant="secondary"
+          >
             View Skill Roadmap
           </Button>
           <a
