@@ -1,12 +1,14 @@
 import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { UserProfilePopup } from '../components/ui/userprofilepopup'; // Import the popup component
+import { UserProfilePopup } from '../components/ui/userprofilepopup';
+import { User } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
-  const accountIconRef = useRef<HTMLImageElement>(null);
+  const accountIconRef = useRef<HTMLDivElement>(null);
 
   const handleStartAssessment = () => {
     navigate('/start-assessment');
@@ -17,7 +19,6 @@ export const Header: React.FC = () => {
   };
 
   const handleAccountClick = () => {
-    // Toggle the profile popup instead of navigating to login
     setIsProfilePopupOpen(!isProfilePopupOpen);
   };
 
@@ -27,66 +28,48 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="flex items-center justify-between px-[80px] py-10" style={{ backgroundColor: '#1a1a1a' }}>
-        <img src="/logo.svg" alt="Guided" className="h-6" style={{ filter: 'brightness(0) invert(1)' }} />
-        <nav className="flex items-center">
-          <div className="flex items-center gap-0">
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="sticky top-0 z-50 backdrop-blur-md bg-[#1a1a1a]/80 border-b border-gray-800"
+      >
+        <div className="flex items-center justify-between px-[80px] py-6">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="cursor-pointer"
+            onClick={() => navigate('/')}
+          >
+            <img src="/logo.svg" alt="Guided" className="h-7" style={{ filter: 'brightness(0) invert(1)' }} />
+          </motion.div>
+
+          <nav className="flex items-center gap-2">
             <Button
               variant="ghost"
-              className="hover:text-white hover:bg-transparent"
-              style={{
-                fontFamily: 'Poppins',
-                fontSize: '23px',
-                fontWeight: 500,
-                background: 'linear-gradient(180deg, #abe6c4, #a9ddc0)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
+              className="text-[#ABE6C4] hover:text-white hover:bg-gray-800/50 font-['Poppins'] text-base font-medium px-6 py-2 transition-all duration-300"
               onClick={handleStartAssessment}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'transparent';
-                (e.currentTarget.style as any).webkitBackgroundClip = 'initial';
-                e.currentTarget.style.backgroundClip = 'initial';
-                (e.currentTarget.style as any).webkitTextFillColor = 'white';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(180deg, #abe6c4, #a9ddc0)';
-                (e.currentTarget.style as any).webkitBackgroundClip = 'text';
-                e.currentTarget.style.backgroundClip = 'text';
-                (e.currentTarget.style as any).webkitTextFillColor = 'transparent';
-              }}
             >
               Start Assessment
             </Button>
             <Button
               variant="ghost"
-              className="text-white hover:text-[#A9DFC1] hover:bg-transparent"
-              style={{ fontFamily: 'Poppins', fontSize: '23px', fontWeight: 500 }}
+              className="text-white hover:text-[#ABE6C4] hover:bg-gray-800/50 font-['Poppins'] text-base font-medium px-6 py-2 transition-all duration-300"
               onClick={handleCreateAccount}
             >
               Create Account
             </Button>
-          </div>
-          <img
-            ref={accountIconRef}
-            src="/account_circle.svg"
-            alt="Account"
-            className="w-[30px] h-[30px] cursor-pointer transition-all duration-300 ml-4"
-            onClick={handleAccountClick}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.filter = 'brightness(0) saturate(100%) invert(74%) sepia(25%) saturate(426%) hue-rotate(85deg) brightness(96%) contrast(90%)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.filter = 'brightness(0) invert(1)';
-            }}
-            style={{ filter: 'brightness(0) invert(1)' }}
-          />
-        </nav>
-      </header>
+            <div
+              ref={accountIconRef}
+              onClick={handleAccountClick}
+              className="ml-2 w-10 h-10 rounded-full bg-gray-800 border border-gray-700 hover:border-[#ABE6C4] flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"
+            >
+              <User className="text-gray-400 hover:text-[#ABE6C4]" size={20} />
+            </div>
+          </nav>
+        </div>
+      </motion.header>
 
-      {/* Profile Popup */}
-      <UserProfilePopup 
+      <UserProfilePopup
         isOpen={isProfilePopupOpen}
         onClose={closeProfilePopup}
         triggerRef={accountIconRef}

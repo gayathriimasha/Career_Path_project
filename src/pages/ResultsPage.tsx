@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
-import { Button } from "../components/ui/button";
+import { motion } from "framer-motion";
+import { Home, TrendingUp, Award, Lightbulb } from "lucide-react";
 
 interface CareerScore {
   career: string;
@@ -77,10 +77,10 @@ export default function ResultsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-[#1a1a1a] text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-lg text-muted-foreground">Analyzing your assessment...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ABE6C4] mx-auto mb-4"></div>
+          <p className="text-lg text-gray-400 font-['Poppins']">Analyzing your assessment...</p>
         </div>
       </div>
     );
@@ -88,36 +88,32 @@ export default function ResultsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
-        <Card className="max-w-md w-full">
-          <CardHeader>
-            <CardTitle className="text-destructive">Error</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-muted-foreground">{error}</p>
-            <Link to="/">
-              <Button className="w-full">Go to Home</Button>
-            </Link>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen bg-[#1a1a1a] text-white flex flex-col items-center justify-center p-4">
+        <div className="max-w-md w-full p-8 rounded-2xl bg-black/30 border border-gray-800">
+          <h2 className="text-2xl font-['Questrial'] mb-4 text-red-400">Error</h2>
+          <p className="text-gray-400 font-['Poppins'] mb-6">{error}</p>
+          <Link to="/">
+            <button className="w-full px-6 py-3 rounded-xl bg-white text-black font-['Poppins'] hover:bg-gray-200 transition-all duration-200">
+              Go to Home
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
 
   if (!prediction) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
-        <Card className="max-w-md w-full">
-          <CardHeader>
-            <CardTitle>No Results</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-muted-foreground">No prediction data available.</p>
-            <Link to="/questionnaire">
-              <Button className="w-full">Start New Assessment</Button>
-            </Link>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen bg-[#1a1a1a] text-white flex flex-col items-center justify-center p-4">
+        <div className="max-w-md w-full p-8 rounded-2xl bg-black/30 border border-gray-800">
+          <h2 className="text-2xl font-['Questrial'] mb-4">No Results</h2>
+          <p className="text-gray-400 font-['Poppins'] mb-6">No prediction data available.</p>
+          <Link to="/questionnaire">
+            <button className="w-full px-6 py-3 rounded-xl bg-white text-black font-['Poppins'] hover:bg-gray-200 transition-all duration-200">
+              Start New Assessment
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -125,285 +121,293 @@ export default function ResultsPage() {
   const { topCareer, topN, reasons, lowConfidence, counterfactuals } = prediction;
 
   return (
-    <div className="min-h-screen bg-background relative">
-      {/* Subtle blob background */}
-      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-        <svg
-          className="absolute top-20 left-10 w-96 h-96 opacity-5 animate-float"
-          viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill="currentColor"
-            className="text-primary"
-            d="M47.1,-57.9C59.9,-49.1,68.4,-33.3,71.6,-16.2C74.8,0.9,72.7,19.3,64.3,35.1C55.9,50.9,41.2,64.1,24.3,69.8C7.4,75.5,-11.7,73.7,-28.4,66.4C-45.1,59.1,-59.4,46.3,-66.8,30.2C-74.2,14.1,-74.7,-5.3,-69.3,-22.4C-63.9,-39.5,-52.6,-54.3,-38.5,-62.7C-24.4,-71.1,-8.1,-73.1,6.5,-71.4C21.1,-69.7,34.3,-66.7,47.1,-57.9Z"
-            transform="translate(100 100)"
-          />
-        </svg>
-        <svg
-          className="absolute bottom-20 right-10 w-80 h-80 opacity-5 animate-float"
-          style={{ animationDelay: "1.6s" }}
-          viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill="currentColor"
-            className="text-accent"
-            d="M41.3,-54.4C53.4,-45.7,62.7,-33.1,67.5,-18.8C72.3,-4.5,72.6,11.5,67.1,25.7C61.6,39.9,50.3,52.3,36.6,59.4C22.9,66.5,6.8,68.3,-9.7,66.1C-26.2,63.9,-43.1,57.7,-54.8,47.1C-66.5,36.5,-73,21.5,-73.9,6.1C-74.8,-9.3,-70.1,-25.1,-60.5,-37.4C-50.9,-49.7,-36.4,-58.5,-21.8,-65.1C-7.2,-71.7,7.5,-76.1,21.3,-73.1C35.1,-70.1,48,-59.7,41.3,-54.4Z"
-            transform="translate(100 100)"
-          />
-        </svg>
+    <div className="min-h-screen bg-[#1a1a1a] text-white">
+      {/* Header with back button */}
+      <div className="sticky top-0 z-50 bg-[#1a1a1a]/95 backdrop-blur-sm border-b border-gray-800">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-all duration-200 border border-gray-700"
+          >
+            <Home size={20} />
+            <span className="text-sm font-['Poppins']">Back to Home</span>
+          </button>
+          <div className="flex items-center gap-2">
+            <Award size={20} className="text-[#ABE6C4]" />
+            <span className="text-sm text-gray-400 font-['Poppins']">Your Career Match</span>
+          </div>
+        </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Ethical Disclaimer Banner */}
-        <Card className="rounded-2xl border-2 border-primary/20 bg-primary/5 shadow-md mb-8">
-          <CardContent className="p-6">
-            <div className="flex items-start gap-3">
-              <div className="text-2xl">💡</div>
-              <div className="flex-1">
-                <h3 className="font-semibold mb-2 text-lg">Important: This is Guidance, Not Destiny</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  These results are <strong>one perspective</strong> based on your current responses, not a definitive answer about your future.
-                  Career success depends on <strong>passion, effort, and continuous learning</strong> — not just initial scores.
-                  Many people thrive in careers they weren't "predicted" for. <strong>Explore freely</strong> and don't let these results limit your ambitions.
-                  Consider consulting with career counselors and professionals for personalized advice.
-                </p>
-              </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="p-6 rounded-2xl bg-[#ABE6C4]/10 border border-[#ABE6C4]/20 mb-8"
+        >
+          <div className="flex items-start gap-3">
+            <Lightbulb size={24} className="text-[#ABE6C4] flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-['Questrial'] text-lg mb-2">Important: This is Guidance, Not Destiny</h3>
+              <p className="text-sm text-gray-300 font-['Poppins'] leading-relaxed">
+                These results are <strong className="text-white">one perspective</strong> based on your current responses, not a definitive answer about your future.
+                Career success depends on <strong className="text-white">passion, effort, and continuous learning</strong> — not just initial scores.
+                Many people thrive in careers they weren't "predicted" for. <strong className="text-white">Explore freely</strong> and don't let these results limit your ambitions.
+                Consider consulting with career counselors and professionals for personalized advice.
+              </p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </motion.div>
 
         {/* Winner Card */}
-        <Card className="rounded-2xl border bg-background shadow-md mb-8">
-          <CardContent className="p-6 md:p-8">
-            <div className="space-y-4">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h1 className="text-2xl md:text-3xl font-semibold mb-2">
-                    {topCareer.main} — {topCareer.sub}
-                  </h1>
-                  <p className="text-sm text-muted-foreground">
-                    Recommended Career Path
-                  </p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="p-8 rounded-2xl bg-gradient-to-br from-black/40 to-black/20 border border-gray-800 mb-8"
+        >
+          <div className="space-y-6">
+            <div className="flex items-start justify-between flex-wrap gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="h-1 w-12 bg-[#ABE6C4] rounded-full"></div>
+                  <span className="text-sm text-[#ABE6C4] font-['Poppins'] uppercase tracking-wide">Your Best Match</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">Confidence:</span>
-                  <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                      lowConfidence
-                        ? "bg-muted text-muted-foreground"
-                        : "bg-primary/10 text-primary"
-                    }`}
-                  >
-                    {lowConfidence ? "Moderate" : "High"}
-                  </span>
-                </div>
+                <h1 className="text-4xl font-['Questrial'] mb-2">
+                  {topCareer.main}
+                </h1>
+                <p className="text-xl text-gray-400 font-['Poppins']">
+                  {topCareer.sub}
+                </p>
               </div>
-
-              {/* A/B/S Scores */}
-              <div className="grid grid-cols-3 gap-4 mt-6">
-                <div className="text-center p-3 rounded-lg border bg-card">
-                  <div className="text-2xl font-bold text-primary">
-                    {topN[0]?.A.toFixed(0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">Academic</div>
-                </div>
-                <div className="text-center p-3 rounded-lg border bg-card">
-                  <div className="text-2xl font-bold text-primary">
-                    {topN[0]?.B.toFixed(0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">Behavioral</div>
-                </div>
-                <div className="text-center p-3 rounded-lg border bg-card">
-                  <div className="text-2xl font-bold text-primary">
-                    {topN[0]?.S_final.toFixed(0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">Overall</div>
-                </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 border border-gray-700">
+                <TrendingUp size={16} className={lowConfidence ? "text-gray-400" : "text-[#ABE6C4]"} />
+                <span className="text-sm font-['Poppins']">
+                  {lowConfidence ? "Moderate" : "High"} Confidence
+                </span>
               </div>
-
-              {topN[0]?.ci && (
-                <div className="text-xs text-muted-foreground text-center">
-                  Confidence interval: {topN[0].ci[0].toFixed(0)}–{topN[0].ci[1].toFixed(0)}
-                </div>
-              )}
             </div>
-          </CardContent>
-        </Card>
+
+            {/* A/B/S Scores */}
+            <div className="grid grid-cols-3 gap-4 mt-6">
+              <div className="text-center p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-[#ABE6C4]/30 transition-colors duration-200">
+                <div className="text-3xl font-bold text-[#ABE6C4] font-['Questrial']">
+                  {topN[0]?.A.toFixed(0)}
+                </div>
+                <div className="text-xs text-gray-400 font-['Poppins'] mt-2">Academic Match</div>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-[#ABE6C4]/30 transition-colors duration-200">
+                <div className="text-3xl font-bold text-[#ABE6C4] font-['Questrial']">
+                  {topN[0]?.B.toFixed(0)}
+                </div>
+                <div className="text-xs text-gray-400 font-['Poppins'] mt-2">Behavioral Match</div>
+              </div>
+              <div className="text-center p-4 rounded-xl bg-gradient-to-br from-[#ABE6C4]/20 to-transparent border border-[#ABE6C4]/40 shadow-lg shadow-[#ABE6C4]/10">
+                <div className="text-3xl font-bold text-white font-['Questrial']">
+                  {topN[0]?.S_final.toFixed(0)}
+                </div>
+                <div className="text-xs text-gray-300 font-['Poppins'] mt-2">Overall Score</div>
+              </div>
+            </div>
+
+            {topN[0]?.ci && (
+              <div className="text-xs text-gray-500 font-['Poppins'] text-center">
+                95% Confidence interval: {topN[0].ci[0].toFixed(0)}–{topN[0].ci[1].toFixed(0)}
+              </div>
+            )}
+          </div>
+        </motion.div>
 
         {/* Why Paragraph */}
-        <Card className="rounded-2xl border bg-background shadow-md mb-8">
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">Why This Match?</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground leading-relaxed">
-              {reasons.length > 0
-                ? reasons.join(". ") + "."
-                : "Your profile aligns well with this career path based on your responses."}
-            </p>
-          </CardContent>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="p-6 rounded-2xl bg-black/30 border border-gray-800 mb-8"
+        >
+          <h2 className="text-2xl font-['Questrial'] mb-4">Why This Match?</h2>
+          <p className="text-gray-300 font-['Poppins'] leading-relaxed">
+            {reasons.length > 0
+              ? reasons.join(". ") + "."
+              : "Your profile aligns well with this career path based on your responses."}
+          </p>
+        </motion.div>
 
         {/* Counterfactual Explanations - How to improve alignment with other careers */}
         {counterfactuals && counterfactuals.length > 0 && (
-          <Card className="rounded-2xl border bg-background shadow-md mb-8">
-            <CardHeader>
-              <CardTitle className="text-xl font-semibold">Interested in Other Careers?</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Here's what you could focus on to strengthen your profile for alternative career paths:
-              </p>
-              <div className="space-y-4">
-                {counterfactuals.map((cf, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 rounded-lg border bg-card"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <h4 className="font-medium">{cf.career}</h4>
-                      <span className="text-sm text-muted-foreground">
-                        Current score: {cf.current_score}
-                      </span>
-                    </div>
-                    <ul className="space-y-2">
-                      {cf.suggestions.map((suggestion, sIdx) => (
-                        <li key={sIdx} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary mt-0.5">→</span>
-                          <span>{suggestion}</span>
-                        </li>
-                      ))}
-                    </ul>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="p-6 rounded-2xl bg-black/30 border border-gray-800 mb-8"
+          >
+            <h2 className="text-2xl font-['Questrial'] mb-2">Interested in Other Careers?</h2>
+            <p className="text-sm text-gray-400 font-['Poppins'] mb-6">
+              Here's what you could focus on to strengthen your profile for alternative career paths:
+            </p>
+            <div className="space-y-4">
+              {counterfactuals.map((cf, idx) => (
+                <div
+                  key={idx}
+                  className="p-5 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-gray-700 transition-colors duration-200"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-['Questrial'] text-lg">{cf.career}</h4>
+                    <span className="text-sm text-gray-500 font-['Poppins']">
+                      Current: {cf.current_score}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                  <ul className="space-y-2">
+                    {cf.suggestions.map((suggestion, sIdx) => (
+                      <li key={sIdx} className="text-sm text-gray-300 font-['Poppins'] flex items-start gap-3">
+                        <span className="text-[#ABE6C4] mt-0.5 flex-shrink-0">→</span>
+                        <span>{suggestion}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         )}
 
         {/* Top-N Careers */}
-        <Card className="rounded-2xl border bg-background shadow-md mb-8">
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">
-              Top Career Matches
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {topN.slice(0, 5).map((career, idx) => {
-                const isTop = idx === 0;
-                const barWidth = (career.S_final / topN[0].S_final) * 100;
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="p-6 rounded-2xl bg-black/30 border border-gray-800 mb-8"
+        >
+          <h2 className="text-2xl font-['Questrial'] mb-6">Top Career Matches</h2>
+          <div className="space-y-4">
+            {topN.slice(0, 5).map((career, idx) => {
+              const isTop = idx === 0;
+              const barWidth = (career.S_final / topN[0].S_final) * 100;
 
-                return (
-                  <div
-                    key={idx}
-                    className={`p-4 rounded-lg border transition-all ${
-                      isTop ? "bg-primary/5 border-primary/20" : "bg-card"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-muted-foreground">
-                          #{idx + 1}
-                        </span>
-                        <span className="font-medium">{career.career}</span>
-                      </div>
-                      <span className="text-sm font-semibold text-primary">
-                        {career.S_final.toFixed(1)}
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 + idx * 0.1 }}
+                  className={`p-4 rounded-xl border transition-all duration-200 ${
+                    isTop
+                      ? "bg-[#ABE6C4]/10 border-[#ABE6C4]/30"
+                      : "bg-gray-900/50 border-gray-800 hover:border-gray-700"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <span className={`text-sm font-['Poppins'] font-medium ${isTop ? "text-[#ABE6C4]" : "text-gray-500"}`}>
+                        #{idx + 1}
                       </span>
+                      <span className="font-['Questrial'] text-lg">{career.career}</span>
                     </div>
-                    <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
-                      <div
-                        className="bg-primary h-full rounded-full transition-all"
-                        style={{ width: `${barWidth}%` }}
-                      ></div>
-                    </div>
-                    <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
-                      <span>Academic: {career.A.toFixed(0)}</span>
-                      <span>Behavioral: {career.B.toFixed(0)}</span>
-                      <span>Combined: {career.S.toFixed(0)}</span>
-                    </div>
+                    <span className={`text-sm font-bold font-['Poppins'] ${isTop ? "text-[#ABE6C4]" : "text-gray-400"}`}>
+                      {career.S_final.toFixed(1)}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
+                  <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden mb-3">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${barWidth}%` }}
+                      transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
+                      className={`h-full rounded-full ${isTop ? "bg-[#ABE6C4]" : "bg-gray-600"}`}
+                    ></motion.div>
+                  </div>
+                  <div className="flex gap-4 text-xs text-gray-500 font-['Poppins']">
+                    <span>Academic: {career.A.toFixed(0)}</span>
+                    <span>Behavioral: {career.B.toFixed(0)}</span>
+                    <span>Combined: {career.S.toFixed(0)}</span>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
 
         {/* Low Confidence Notice */}
         {lowConfidence && (
-          <Card className="rounded-2xl border border-muted bg-muted/5 shadow-md mb-8">
-            <CardContent className="p-6">
-              <div className="flex items-start gap-3">
-                <div className="text-muted-foreground">ℹ️</div>
-                <div>
-                  <h3 className="font-medium mb-1">Multiple Strong Matches</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Your profile shows alignment with several career paths. Consider exploring
-                    the top alternatives listed above to find the best fit for your goals and
-                    interests.
-                  </p>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="p-6 rounded-2xl bg-gray-900/30 border border-gray-700 mb-8"
+          >
+            <div className="flex items-start gap-3">
+              <div className="text-gray-400">ℹ️</div>
+              <div>
+                <h3 className="font-['Questrial'] text-lg mb-1">Multiple Strong Matches</h3>
+                <p className="text-sm text-gray-400 font-['Poppins']">
+                  Your profile shows alignment with several career paths. Consider exploring
+                  the top alternatives listed above to find the best fit for your goals and
+                  interests.
+                </p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </motion.div>
         )}
 
         {/* Growth Mindset & Exploration Card */}
-        <Card className="rounded-2xl border bg-background shadow-md mb-8">
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">Remember: Skills Are Learnable 🌱</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4 text-sm text-muted-foreground">
-              <p className="leading-relaxed">
-                <strong>Don't see your dream career ranked highly?</strong> That's okay! Research shows that:
-              </p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Most career-relevant skills can be learned with dedicated practice</li>
-                <li>Passion and persistence often matter more than initial aptitude</li>
-                <li>Many successful professionals started with lower scores in their field</li>
-                <li>Career paths are rarely linear — people change careers 5-7 times on average</li>
-              </ul>
-              <p className="leading-relaxed pt-2">
-                <strong>Next Steps:</strong> Research the career that excites you most, talk to professionals in that field,
-                take online courses, and gain practical experience. Your future is shaped by your choices and effort,
-                not by today's assessment scores.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="p-6 rounded-2xl bg-black/30 border border-gray-800 mb-8"
+        >
+          <h2 className="text-2xl font-['Questrial'] mb-4">Remember: Skills Are Learnable 🌱</h2>
+          <div className="space-y-4 text-sm text-gray-300 font-['Poppins']">
+            <p className="leading-relaxed">
+              <strong className="text-white">Don't see your dream career ranked highly?</strong> That's okay! Research shows that:
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Most career-relevant skills can be learned with dedicated practice</li>
+              <li>Passion and persistence often matter more than initial aptitude</li>
+              <li>Many successful professionals started with lower scores in their field</li>
+              <li>Career paths are rarely linear — people change careers 5-7 times on average</li>
+            </ul>
+            <p className="leading-relaxed pt-2">
+              <strong className="text-white">Next Steps:</strong> Research the career that excites you most, talk to professionals in that field,
+              take online courses, and gain practical experience. Your future is shaped by your choices and effort,
+              not by today's assessment scores.
+            </p>
+          </div>
+        </motion.div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center mt-8">
-          <Link to="/questionnaire">
-            <Button variant="outline" className="min-w-[150px]">
-              Retake Assessment
-            </Button>
-          </Link>
-          <Button
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="flex flex-wrap gap-4 justify-center mt-12"
+        >
+          <button
+            onClick={() => navigate('/questionnaire')}
+            className="px-6 py-3 rounded-xl bg-gray-800 text-white font-['Poppins'] hover:bg-gray-700 transition-all duration-200 border border-gray-700 min-w-[180px]"
+          >
+            Retake Assessment
+          </button>
+          <button
             onClick={() => navigate(`/roadmap?career=${encodeURIComponent(topCareer.main)}&sub=${encodeURIComponent(topCareer.sub)}&assessmentId=${assessmentId}`)}
-            className="min-w-[150px]"
-            variant="secondary"
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] text-black font-['Poppins'] font-medium hover:shadow-lg hover:shadow-[#ABE6C4]/20 transition-all duration-200 min-w-[180px]"
           >
             View Skill Roadmap
-          </Button>
+          </button>
           <a
             href="https://www.mynextmove.org/"
             target="_blank"
             rel="noopener noreferrer"
-            className="min-w-[150px]"
           >
-            <Button variant="outline" className="w-full">
+            <button className="px-6 py-3 rounded-xl bg-gray-800 text-white font-['Poppins'] hover:bg-gray-700 transition-all duration-200 border border-gray-700 min-w-[180px]">
               Explore All Careers
-            </Button>
+            </button>
           </a>
-        </div>
+        </motion.div>
 
         {/* Data Privacy & Ethics Notice */}
-        <div className="mt-12 text-center text-xs text-muted-foreground">
+        <div className="mt-12 text-center text-xs text-gray-500 font-['Poppins']">
           <p>
             Your responses are used only to generate recommendations. We do not share or sell your data.
             Model accuracy: ~82% for main careers. Results may contain biases from training data.

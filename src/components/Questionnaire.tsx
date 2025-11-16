@@ -13,10 +13,10 @@ import { Header } from "../components/Header";
 // Common styles
 const commonStyles = {
     container: "min-h-screen bg-[#1a1a1a] text-white px-[50px] py-[32px]",
-    questionBox: "w-full h-[60px] px-[19px] py-[22px] rounded-[15px] flex justify-start items-center gap-[10px] cursor-pointer transition-all duration-200",
+    questionBox: "w-full h-[60px] px-[19px] py-[22px] rounded-[15px] flex justify-start items-center gap-[10px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg",
     questionText: "text-[17px] font-normal font-['Questrial']",
-    mainContainer: "w-full max-w-[1095px] h-[700px] px-[71px] py-[75px] bg-white rounded-[30px] flex flex-col justify-start items-start gap-[10px]",
-    button: "px-[10px] py-[7px] rounded-[8px] flex items-center gap-[7px] border-none transition-all duration-200"
+    mainContainer: "w-full max-w-[1095px] min-h-[700px] px-[71px] py-[75px] bg-[#0f0f0f] rounded-[30px] flex flex-col justify-start items-start gap-[10px] border border-gray-800 shadow-2xl",
+    button: "px-[10px] py-[7px] rounded-[8px] flex items-center gap-[7px] border-none transition-all duration-300 hover:shadow-lg"
 };
 
 // Animation variants
@@ -44,7 +44,7 @@ interface StyledQuestionContainerProps {
 
 const StyledQuestionContainer: React.FC<StyledQuestionContainerProps> = ({ question, children, isLastQuestion }) => (
     <div className="flex flex-col justify-start items-start gap-[40px]">
-        <div className="w-full text-black text-[28px] font-normal font-['Questrial'] leading-tight">
+        <div className="w-full text-white text-[28px] font-normal font-['Questrial'] leading-tight">
             {question}
         </div>
         <div className={isLastQuestion ? "w-full grid grid-cols-3 gap-[15px]" : "w-full flex flex-col gap-[15px]"}>
@@ -68,7 +68,7 @@ const StyledTextQuestion: React.FC<StyledTextQuestionProps> = React.memo(({ ques
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className="w-full h-[60px] px-[19px] py-[22px] rounded-[15px] bg-[#E0E3E4] border-none outline-none text-black text-[17px] font-normal font-['Questrial'] box-border"
+            className="w-full h-[60px] px-[19px] py-[22px] rounded-[15px] bg-[#1f1f1f] border border-gray-700 outline-none text-white text-[17px] font-normal font-['Questrial'] box-border focus:border-[#ABE6C4] focus:bg-[#252525] transition-all duration-300 placeholder:text-gray-500"
         />
     </StyledQuestionContainer>
 ));
@@ -222,15 +222,15 @@ export default function Questionnaire() {
                 return (
                     <StyledQuestionContainer question={currentQuestion.text} isLastQuestion={isLastQuestion}>
                         {(currentQuestion.options || []).map((option: string, index: number) => (
-                            <div 
+                            <div
                                 key={index}
                                 onClick={() => handleRadioChange(option)}
                                 className={`${commonStyles.questionBox} ${
-                                    answer === option ? 'bg-[#A9DFC1]' : 'bg-[#E0E3E4]'
+                                    answer === option ? 'bg-[#ABE6C4] border border-[#ABE6C4]' : 'bg-[#1f1f1f] border border-gray-700'
                                 }`}
                             >
                                 <div className={`${commonStyles.questionText} ${
-                                    answer === option ? 'text-black' : 'text-black/50'
+                                    answer === option ? 'text-black font-medium' : 'text-gray-300'
                                 }`}>
                                     {option}
                                 </div>
@@ -245,21 +245,21 @@ export default function Questionnaire() {
                         {(currentQuestion.options || []).map((option: string, index: number) => {
                             const isSelected = Array.isArray(answer) && answer.includes(option);
                             return (
-                                <div 
+                                <div
                                     key={index}
                                     onClick={() => {
                                         const currentValues = Array.isArray(answer) ? answer : [];
-                                        const newValues = isSelected 
+                                        const newValues = isSelected
                                             ? currentValues.filter((v: string) => v !== option)
                                             : [...currentValues, option];
                                         handleCheckboxChange(newValues);
                                     }}
                                     className={`${commonStyles.questionBox} ${
-                                        isSelected ? 'bg-[#A9DFC1]' : 'bg-[#E0E3E4]'
+                                        isSelected ? 'bg-[#ABE6C4] border border-[#ABE6C4]' : 'bg-[#1f1f1f] border border-gray-700'
                                     }`}
                                 >
                                     <div className={`${commonStyles.questionText} ${
-                                        isSelected ? 'text-black' : 'text-black/50'
+                                        isSelected ? 'text-black font-medium' : 'text-gray-300'
                                     }`}>
                                         {option}
                                     </div>
@@ -282,24 +282,24 @@ export default function Questionnaire() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
-                            className="bg-gray-800 rounded-lg p-12 shadow-xl"
+                            className="bg-[#0f0f0f] rounded-[30px] p-12 shadow-2xl border border-gray-800"
                         >
                             <div className="mb-8">
-                                <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div className="w-20 h-20 bg-[#ABE6C4] rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <svg className="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <h1 className="text-4xl font-bold mb-4 text-green-400">Assessment Completed!</h1>
-                                <p className="text-xl text-gray-300 mb-8">
+                                <h1 className="text-4xl font-['Questrial'] font-bold mb-4 text-[#ABE6C4]">Assessment Completed!</h1>
+                                <p className="text-xl text-gray-300 font-['Poppins'] mb-8">
                                     Redirecting to your results...
                                 </p>
                             </div>
-                            
+
                             <div className="space-y-4">
                                 <button
                                     onClick={restartQuestionnaire}
-                                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200"
+                                    className="px-6 py-3 bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] hover:shadow-xl hover:shadow-[#ABE6C4]/30 text-black font-['Poppins'] font-semibold rounded-lg transition-all duration-300 hover:scale-105"
                                 >
                                     Take Assessment Again
                                 </button>
@@ -315,8 +315,13 @@ export default function Questionnaire() {
         <div className="min-h-screen bg-[#1a1a1a] text-white px-[50px] py-8">
             <div className="max-w-7xl mx-auto">
                 <header className="mb-12 text-center">
-                    <h1 className="text-4xl font-bold mb-4">Interactive Questionnaire</h1>
-                    <p className="text-gray-400">Please answer all questions to complete the survey</p>
+                    <div className="flex items-center gap-3 justify-center mb-4">
+                        <div className="h-1 w-12 bg-[#ABE6C4] rounded-full"></div>
+                        <span className="text-sm text-[#ABE6C4] font-['Poppins'] uppercase tracking-wide">Assessment In Progress</span>
+                        <div className="h-1 w-12 bg-[#ABE6C4] rounded-full"></div>
+                    </div>
+                    <h1 className="text-4xl font-['Questrial'] font-bold mb-4">Interactive Questionnaire</h1>
+                    <p className="text-gray-400 font-['Poppins']">Please answer all questions to complete the survey</p>
                 </header>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-screen">
@@ -336,7 +341,7 @@ export default function Questionnaire() {
                             >
                                 <div className="w-full flex flex-col gap-6">
                                     <div className="w-full flex justify-between items-center">
-                                        <span className="text-gray-400">
+                                        <span className="text-[#ABE6C4] text-sm font-['Poppins'] font-medium">
                                             Question {currentIndex + 1} of {questionsData.length}
                                         </span>
                                     </div>
@@ -347,17 +352,17 @@ export default function Questionnaire() {
 
                                     {/* Error message */}
                                     {submitError && (
-                                        <div className="bg-red-900/50 border border-red-500 text-red-200 px-4 py-3 rounded-lg">
-                                            <p className="text-sm">{submitError}</p>
+                                        <div className="bg-red-900/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg">
+                                            <p className="text-sm font-['Poppins']">{submitError}</p>
                                         </div>
                                     )}
 
                                     {/* Loading state for submission */}
                                     {isSubmitting && (
-                                        <div className="bg-blue-900/50 border border-blue-500 text-blue-200 px-4 py-3 rounded-lg">
+                                        <div className="bg-[#ABE6C4]/10 border border-[#ABE6C4] text-[#ABE6C4] px-4 py-3 rounded-lg">
                                             <div className="flex items-center space-x-2">
-                                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
-                                                <p className="text-sm">Submitting your assessment...</p>
+                                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#ABE6C4]"></div>
+                                                <p className="text-sm font-['Poppins'] font-medium">Submitting your assessment...</p>
                                             </div>
                                         </div>
                                     )}
@@ -367,12 +372,12 @@ export default function Questionnaire() {
                                             {currentIndex > 0 && (
                                                 <button
                                                     onClick={prevQuestion}
-                                                    className={`${commonStyles.button} bg-[#ECECEC] cursor-pointer`}
+                                                    className={`${commonStyles.button} bg-[#1f1f1f] border border-gray-700 cursor-pointer hover:border-gray-600 hover:bg-[#252525]`}
                                                 >
                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M2.86875 5.25L12 5.25L12 6.75L2.86875 6.75L7.06875 10.95L6 12L5.24537e-07 6L6 -5.24537e-07L7.06875 1.05L2.86875 5.25Z" fill="#5C5C5C"/>
+                                                        <path d="M2.86875 5.25L12 5.25L12 6.75L2.86875 6.75L7.06875 10.95L6 12L5.24537e-07 6L6 -5.24537e-07L7.06875 1.05L2.86875 5.25Z" fill="#9CA3AF"/>
                                                     </svg>
-                                                    <span className="text-[#707172] text-[17px] font-medium font-['Poppins']">
+                                                    <span className="text-gray-300 text-[17px] font-medium font-['Poppins']">
                                                         Previous Question
                                                     </span>
                                                 </button>
@@ -382,18 +387,18 @@ export default function Questionnaire() {
                                             onClick={nextQuestion}
                                             disabled={!canProceed() || isSubmitting}
                                             className={`${commonStyles.button} ${
-                                                canProceed() && !isSubmitting 
-                                                    ? 'bg-[#212121] cursor-pointer' 
-                                                    : 'bg-[#ECECEC] cursor-not-allowed'
+                                                canProceed() && !isSubmitting
+                                                    ? 'bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] cursor-pointer hover:shadow-xl hover:shadow-[#ABE6C4]/30 hover:scale-105'
+                                                    : 'bg-[#1f1f1f] border border-gray-700 cursor-not-allowed opacity-50'
                                             }`}
                                         >
                                             <span className={`text-[17px] font-medium font-['Poppins'] ${
-                                                canProceed() && !isSubmitting ? 'text-white' : 'text-[#707172]'
+                                                canProceed() && !isSubmitting ? 'text-black' : 'text-gray-600'
                                             }`}>
                                                 {currentIndex === questionsData.length - 1 ? 'Submit Assessment' : 'Next Question'}
                                             </span>
                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.13125 6.75H0V5.25H9.13125L4.93125 1.05L6 0L12 6L6 12L4.93125 10.95L9.13125 6.75Z" fill={canProceed() && !isSubmitting ? "white" : "#707172"}/>
+                                                <path d="M9.13125 6.75H0V5.25H9.13125L4.93125 1.05L6 0L12 6L6 12L4.93125 10.95L9.13125 6.75Z" fill={canProceed() && !isSubmitting ? "black" : "#4B5563"}/>
                                             </svg>
                                         </button>
                                     </div>

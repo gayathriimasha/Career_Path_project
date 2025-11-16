@@ -106,8 +106,8 @@ export const VerticalProgressTracker: React.FC<VerticalProgressTrackerProps> = (
                                     className={`
                                         w-10 h-10 rounded-full border-2 flex items-center justify-center
                                         transition-all duration-500 relative z-10
-                                        ${isCompleted ? 'bg-white border-white' : 
-                                          isActive ? 'bg-white border-white' : 
+                                        ${isCompleted ? 'bg-[#ABE6C4] border-[#ABE6C4]' :
+                                          isActive ? 'bg-[#ABE6C4] border-[#ABE6C4]' :
                                           'bg-transparent border-gray-600'}
                                     `}
                                 >
@@ -151,14 +151,14 @@ export const VerticalProgressTracker: React.FC<VerticalProgressTrackerProps> = (
                                         exit={{ opacity: 0, x: -20, scale: 0.8 }}
                                         transition={{ duration: 0.4, ease: "easeOut" }}
                                         className="absolute left-20 top-1/2 transform -translate-y-1/2 translate-y-[-10px]
-                                                 bg-white px-4 py-2 rounded-lg
-                                                 text-black text-sm font-medium whitespace-nowrap
+                                                 bg-[#ABE6C4] px-4 py-2 rounded-lg
+                                                 text-black text-sm font-medium whitespace-nowrap font-['Poppins']
                                                  shadow-xl z-20"
                                     >
                                         {step.label}
                                         {/* Arrow pointing to circle */}
                                         <div className="absolute right-full top-1/2 transform -translate-y-1/2">
-                                            <div className="border-r-8 border-r-white border-t-4 border-b-4 border-t-transparent border-b-transparent"></div>
+                                            <div className="border-r-8 border-r-[#ABE6C4] border-t-4 border-b-4 border-t-transparent border-b-transparent"></div>
                                         </div>
                                     </motion.div>
                                 )}
@@ -170,17 +170,17 @@ export const VerticalProgressTracker: React.FC<VerticalProgressTrackerProps> = (
                                     {/* Progress Fill */}
                                     <motion.div
                                         initial={{ height: "0%" }}
-                                        animate={{ 
+                                        animate={{
                                             height: `${Math.min(progress, 100)}%`
                                         }}
-                                        transition={{ 
-                                            duration: 0.8, 
+                                        transition={{
+                                            duration: 0.8,
                                             ease: "easeOut",
                                             delay: 0.1
                                         }}
-                                        className="absolute top-0 left-0 w-full bg-white origin-top"
+                                        className="absolute top-0 left-0 w-full bg-[#ABE6C4] origin-top"
                                     >
-                                        
+
                                     </motion.div>
                                 </div>
                             )}
@@ -194,7 +194,7 @@ export const VerticalProgressTracker: React.FC<VerticalProgressTrackerProps> = (
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-white text-sm font-medium"
+                    className="text-[#ABE6C4] text-sm font-medium font-['Poppins']"
                 >
                     {currentStep + 1} / {steps.length}
                 </motion.div>
@@ -202,7 +202,7 @@ export const VerticalProgressTracker: React.FC<VerticalProgressTrackerProps> = (
                     initial={{ width: 0 }}
                     animate={{ width: `${((currentStep) / (steps.length - 1)) * 100}%` }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="h-0.5 bg-white mt-3 rounded-full"
+                    className="h-0.5 bg-[#ABE6C4] mt-3 rounded-full"
                     style={{ maxWidth: '80px' }}
                 />
             </div>

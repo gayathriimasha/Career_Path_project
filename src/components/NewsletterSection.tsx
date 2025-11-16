@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Mail, Send } from 'lucide-react';
 
 export const NewsletterSection: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -24,60 +25,92 @@ export const NewsletterSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="flex py-16 justify-between items-end" style={{ paddingLeft: '20px', paddingRight: '80px', minHeight: '700px' }}>
+    <section id="contact" className="px-[80px] py-24" style={{ backgroundColor: '#1a1a1a' }}>
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative overflow-hidden rounded-[40px] bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 p-16"
+        >
+          {/* Background Decorations */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#ABE6C4] opacity-5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#7CC9A9] opacity-5 rounded-full blur-3xl"></div>
 
-      <div className="flex items-end justify-end h-full" style={{ width: '610px', minHeight: '700px' }}>
-        <img
-          src="/image 7.png"
-          alt="Career Insights Illustration"
-          className="rounded-[30px] object-cover"
-          style={{
-            width: '90%',
-            height: '90%'
-          }}
-        />
-      </div>
+          <div className="relative z-10 grid grid-cols-2 gap-16 items-center">
+            {/* Left: Content */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-1 w-12 bg-[#ABE6C4] rounded-full"></div>
+                <span className="text-sm text-[#ABE6C4] font-['Poppins'] uppercase tracking-wide">Get In Touch</span>
+              </div>
 
-      <div className="max-w-[600px] text-right flex flex-col justify-end h-full">
-        <div>
-          <h2 className="text-white leading-tight mb-8" style={{ fontFamily: 'Questrial', fontSize: '62px', fontWeight: 400, textAlign: 'right' }}>
-            Stay connected with<br />personalized career<br />insights
-          </h2>
+              <h2 className="text-5xl font-['Questrial'] font-bold text-white leading-tight mb-6">
+                Stay connected with personalized career insights
+              </h2>
 
-          <form onSubmit={handleSubmit} className="flex items-center gap-4">
-            <div className="flex-1">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email to connect with us"
-                className="w-full h-14 px-6 bg-white border border-gray-600 rounded-full text-black placeholder-gray-500 focus:bg-transparent focus:text-white focus:placeholder-gray-400 focus:border-white focus:outline-none transition-all duration-300"
-                required
-                disabled={isSubmitted}
-              />
+              <p className="text-gray-400 font-['Poppins'] text-lg mb-8">
+                Subscribe to receive curated career guidance, industry trends, and personalized recommendations delivered to your inbox.
+              </p>
+
+              <div className="flex items-center gap-6 text-gray-400 font-['Poppins']">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#ABE6C4] rounded-full"></div>
+                  <span>Weekly insights</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#ABE6C4] rounded-full"></div>
+                  <span>No spam</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#ABE6C4] rounded-full"></div>
+                  <span>Unsubscribe anytime</span>
+                </div>
+              </div>
             </div>
-            <Button
-              type="submit"
-              className={`w-14 h-14 rounded-full p-0 transition-all duration-300 ${isSubmitted
-                ? 'bg-green-500 hover:bg-green-500'
-                : 'bg-white hover:bg-gray-100'
-                }`}
-              disabled={isSubmitted}
-            >
-              {isSubmitted ? (
-                <span className="text-white text-2xl">✓</span>
-              ) : (
-                <ArrowForwardIcon
-                  className="text-black"
-                  fontSize="large"
-                />
-              )}
-            </Button>
-          </form>
-        </div>
+
+            {/* Right: Form */}
+            <div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="relative">
+                  <Mail className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="w-full h-16 pl-14 pr-6 bg-gray-800/50 border border-gray-700 rounded-2xl text-white placeholder-gray-500 focus:bg-gray-800 focus:border-[#ABE6C4] focus:outline-none transition-all duration-300 font-['Poppins']"
+                    required
+                    disabled={isSubmitted}
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className={`w-full h-16 rounded-2xl font-['Poppins'] font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+                    isSubmitted
+                      ? 'bg-[#ABE6C4] hover:bg-[#ABE6C4] text-black'
+                      : 'bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] hover:shadow-2xl hover:shadow-[#ABE6C4]/40 hover:scale-105 text-black'
+                  }`}
+                  disabled={isSubmitted}
+                >
+                  {isSubmitted ? (
+                    <>
+                      <span>✓</span>
+                      <span>Subscribed!</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Subscribe Now</span>
+                      <Send size={20} />
+                    </>
+                  )}
+                </Button>
+              </form>
+            </div>
+          </div>
+        </motion.div>
       </div>
-
-
     </section>
   );
 };

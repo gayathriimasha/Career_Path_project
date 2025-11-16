@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Home, Clock, Lock, TrendingUp } from "lucide-react";
 
 export default function StartAssessment() {
     const navigate = useNavigate();
@@ -9,67 +11,158 @@ export default function StartAssessment() {
     };
 
     return (
-        <div className="min-h-screen bg-[#1a1a1a] text-white overflow-hidden px-[80px] py-[0px]">
-            <div className="max-w-[1766px] mr-auto pt-[80px] flex flex-col gap-[67px] text-left">
-                {/* Main Content Container */}
-                <div className="relative bg-black rounded-[30px] h-[656px] overflow-hidden">
-                    <div className="absolute left-[50px] top-[43px] w-[calc(100%-100px)] flex flex-col gap-[58px]">
-                        {/* Header Section */}
-                        <div className="flex flex-col items-start gap-[60px]">
-                            {/* Main Title */}
-                            <h1 className="text-left text-white text-[60px] font-normal font-['Questrial'] leading-tight">
-                                Begin your Guided Journey!
-                            </h1>
-                            
-                            {/* Description Section */}
-                            <div className="flex flex-col gap-[35px]">
-                                {/* Main Description */}
-                                <div className="text-left">
-                                    <span className="text-[#656565] text-[34px] font-['Poppins'] font-normal leading-[51.6px]">
-                                        Let's start with some background. We'll ask about your personal and academic interests to tailor your career path recommendations. This process will take about{" "}
-                                    </span>
-                                    <span className="text-[#ABE6C4] text-[34px] font-['Poppins'] font-normal leading-[51.6px]">
-                                        20 minutes
-                                    </span>
-                                </div>
-                                
-                                {/* Privacy Notice */}
-                                <div className="text-left text-[#C3C3C3] text-[15px] font-['Poppins'] font-normal underline leading-[18.57px]">
-                                    Your data is private and secure. You can review or delete it anytime.
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {/* Assessment Details */}
-                        <div className="flex flex-col gap-[21px] items-start">
-                            <div className="text-white text-[17px] font-['Poppins'] font-normal text-left">
-                                This assessment has 15 quick questions about your favorite subjects, hobbies, and problem-solving style.
-                            </div>
-                            <div className="text-white text-[17px] font-['Poppins'] font-normal text-left">
-                                Your answers will help us match you with careers that fit your interests and goals.
-                            </div>
-                            <div className="text-white text-[17px] font-['Poppins'] font-normal text-left">
-                                Answer honestly! The more truthful you are, the more accurate your career suggestions will be.
-                            </div>
-                        </div>
+        <div className="min-h-screen bg-[#1a1a1a] text-white overflow-hidden">
+            {/* Header */}
+            <div className="sticky top-0 z-50 bg-[#1a1a1a]/95 backdrop-blur-sm border-b border-gray-800">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                    <button
+                        onClick={() => navigate("/")}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-all duration-200 border border-gray-700"
+                    >
+                        <Home size={20} />
+                        <span className="text-sm font-['Poppins']">Back to Home</span>
+                    </button>
+                    <div className="flex items-center gap-2">
+                        <TrendingUp size={20} className="text-[#ABE6C4]" />
+                        <span className="text-sm text-gray-400 font-['Poppins']">Begin Your Journey</span>
                     </div>
                 </div>
-                
-                {/* Button Section */}
-                <div className="flex items-center justify-start gap-[38px] relative w-full">
-                    {/* Button Background with Blur Effect */}
-                    <div className="absolute left-0 w-full h-[70px] bg-gradient-to-b from-white to-[#DCDCDC] rounded-[60px] shadow-lg blur-[1.7px]" />
-                    
-                    {/* Button Content */}
+            </div>
+
+            <div className="max-w-6xl mx-auto px-6 py-16 flex flex-col gap-12">
+                {/* Hero Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center space-y-6"
+                >
+                    <div className="flex items-center gap-3 justify-center mb-4">
+                        <div className="h-1 w-12 bg-[#ABE6C4] rounded-full"></div>
+                        <span className="text-sm text-[#ABE6C4] font-['Poppins'] uppercase tracking-wide">Career Discovery</span>
+                        <div className="h-1 w-12 bg-[#ABE6C4] rounded-full"></div>
+                    </div>
+                    <h1 className="text-6xl font-['Questrial'] leading-tight">
+                        Begin Your Guided Journey
+                    </h1>
+                    <p className="text-xl text-gray-400 font-['Poppins'] max-w-3xl mx-auto leading-relaxed">
+                        Let's discover your ideal career path through a personalized assessment. We'll analyze your academic interests, behavioral patterns, and skills to recommend careers that truly match <span className="text-[#ABE6C4]">who you are</span>.
+                    </p>
+                </motion.div>
+
+                {/* Info Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="p-6 rounded-2xl bg-black/30 border border-gray-800 hover:border-[#ABE6C4]/30 transition-all duration-300"
+                    >
+                        <div className="w-12 h-12 rounded-full bg-[#ABE6C4]/10 flex items-center justify-center mb-4">
+                            <Clock size={24} className="text-[#ABE6C4]" />
+                        </div>
+                        <h3 className="text-lg font-['Questrial'] mb-2">Quick & Easy</h3>
+                        <p className="text-sm text-gray-400 font-['Poppins']">
+                            Complete the assessment in approximately <strong className="text-[#ABE6C4]">20 minutes</strong>. Take your time and answer honestly for the best results.
+                        </p>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="p-6 rounded-2xl bg-black/30 border border-gray-800 hover:border-[#ABE6C4]/30 transition-all duration-300"
+                    >
+                        <div className="w-12 h-12 rounded-full bg-[#ABE6C4]/10 flex items-center justify-center mb-4">
+                            <Lock size={24} className="text-[#ABE6C4]" />
+                        </div>
+                        <h3 className="text-lg font-['Questrial'] mb-2">Private & Secure</h3>
+                        <p className="text-sm text-gray-400 font-['Poppins']">
+                            Your data is <strong className="text-white">completely private</strong>. We never share your information, and you can delete it anytime.
+                        </p>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="p-6 rounded-2xl bg-black/30 border border-gray-800 hover:border-[#ABE6C4]/30 transition-all duration-300"
+                    >
+                        <div className="w-12 h-12 rounded-full bg-[#ABE6C4]/10 flex items-center justify-center mb-4">
+                            <TrendingUp size={24} className="text-[#ABE6C4]" />
+                        </div>
+                        <h3 className="text-lg font-['Questrial'] mb-2">AI-Powered Insights</h3>
+                        <p className="text-sm text-gray-400 font-['Poppins']">
+                            Advanced machine learning analyzes your responses to match you with careers that align with your <strong className="text-white">unique profile</strong>.
+                        </p>
+                    </motion.div>
+                </div>
+
+                {/* What to Expect */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="p-8 rounded-2xl bg-gradient-to-br from-black/40 to-black/20 border border-gray-800"
+                >
+                    <h2 className="text-2xl font-['Questrial'] mb-6 text-center">What to Expect</h2>
+                    <div className="grid md:grid-cols-3 gap-6 text-center">
+                        <div>
+                            <div className="text-3xl font-bold text-[#ABE6C4] font-['Questrial'] mb-2">25</div>
+                            <p className="text-sm text-gray-400 font-['Poppins']">Thoughtful questions about your interests and preferences</p>
+                        </div>
+                        <div>
+                            <div className="text-3xl font-bold text-[#ABE6C4] font-['Questrial'] mb-2">12+</div>
+                            <p className="text-sm text-gray-400 font-['Poppins']">Career categories analyzed by our ML model</p>
+                        </div>
+                        <div>
+                            <div className="text-3xl font-bold text-[#ABE6C4] font-['Questrial'] mb-2">100%</div>
+                            <p className="text-sm text-gray-400 font-['Poppins']">Personalized roadmap tailored to your results</p>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* CTA Button */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                    className="flex justify-center"
+                >
                     <button
                         onClick={handleStart}
-                        className="relative w-full h-[70px] flex items-center justify-center bg-gradient-to-b from-white to-[#DCDCDC] rounded-[60px] shadow-lg hover:from-[#f5f5f5] hover:to-[#d0d0d0] transition-all duration-200 cursor-pointer"
+                        className="group relative px-12 py-4 rounded-2xl bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] text-black font-['Poppins'] font-semibold text-lg hover:shadow-2xl hover:shadow-[#ABE6C4]/30 transition-all duration-300 transform hover:scale-105"
                     >
-                        <span className="text-[#4D4D4D] text-[16px] font-['Poppins'] font-normal capitalize">
-                            Continue with Assessment
-                        </span>
+                        <span className="relative z-10">Continue with Assessment</span>
+                        <div className="absolute inset-0 rounded-2xl bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     </button>
-                </div>
+                </motion.div>
+
+                {/* Tips */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    className="p-6 rounded-2xl bg-[#ABE6C4]/5 border border-[#ABE6C4]/20"
+                >
+                    <h3 className="text-lg font-['Questrial'] mb-3 flex items-center gap-2">
+                        <span className="text-[#ABE6C4]">💡</span> Tips for Best Results
+                    </h3>
+                    <ul className="space-y-2 text-sm text-gray-300 font-['Poppins']">
+                        <li className="flex items-start gap-2">
+                            <span className="text-[#ABE6C4] mt-1">→</span>
+                            <span>Answer honestly based on your genuine interests, not what you think sounds impressive</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                            <span className="text-[#ABE6C4] mt-1">→</span>
+                            <span>Take your time with each question - there's no rush</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                            <span className="text-[#ABE6C4] mt-1">→</span>
+                            <span>Don't overthink - go with your first instinct</span>
+                        </li>
+                    </ul>
+                </motion.div>
             </div>
         </div>
     );
