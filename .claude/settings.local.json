@@ -21,7 +21,8 @@
       "Bash(.\\env\\Scripts\\activate)",
       "Bash(uvicorn:*)",
       "Bash(env/Scripts/python.exe:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []

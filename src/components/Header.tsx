@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { UserProfilePopup } from '../components/ui/userprofilepopup';
+import { UserProfilePopup } from '../components/ui/UserProfilePopup';
 import { User } from 'lucide-react';
 
 export const Header: React.FC = () => {
