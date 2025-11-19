@@ -24,172 +24,227 @@ export const questionsData: Question[] = [
   },
   {
     id: 4,
-    text: "You have a challenging math puzzle that no one in class can solve. What do you do?",
+    text: "When faced with a complex problem, you prefer to:",
     type: "radio",
     options: [
-      "Try to solve it step-by-step using logic",
-      "Search online for similar examples",
-      "Ask a teacher or friend to guide you",
-      "Leave it for later, puzzles aren't really your thing"
+      "Break it down into logical steps and analyze systematically",
+      "Research similar cases and apply proven solutions",
+      "Brainstorm creative alternatives and experiment",
+      "Discuss with others to understand different perspectives"
     ]
   },
   {
     id: 5,
-    text: "Your school asks for help with a campaign to reduce plastic waste. Which role do you want?",
+    text: "Your ideal work setting would be:",
     type: "radio",
     options: [
-      "Design posters and social media content",
-      "Write a powerful message to share",
-      "Plan how the campaign will be organized",
-      "Record videos and edit content"
+      "Laboratory or research facility with controlled environment",
+      "Hospital or clinic helping people directly",
+      "Workshop or site building tangible solutions",
+      "Office managing operations and people"
     ]
   },
   {
     id: 6,
-    text: "Your team at school is preparing for a competition. How do you contribute?",
+    text: "When you see someone struggling, your first instinct is to:",
     type: "radio",
     options: [
-      "Assign roles and lead meetings",
-      "Motivate others to do their best",
-      "Manage the timeline and resources",
-      "Help with designing the final product"
+      "Analyze the root cause and suggest practical solutions",
+      "Offer emotional support and listen to their concerns",
+      "Share your experience and teach them skills",
+      "Connect them with resources or people who can help"
     ]
   },
   {
     id: 7,
-    text: "A classmate is having trouble learning a new topic or stressed before a test. What do you do?",
+    text: "How do you approach learning something completely new?",
     type: "radio",
     options: [
-      "Explain it in a simple way with examples",
-      "Sit with them and practice together",
-      "Share useful resources and study hacks",
-      "Encourage them and offer emotional support"
+      "Study theory first, then practice systematically",
+      "Jump in and learn by doing",
+      "Watch demonstrations and replicate step-by-step",
+      "Combine multiple resources and experiment"
     ]
   },
   {
     id: 8,
-    text: "Your school opens a Makerspace with tools and gadgets. What excites you most?",
+    text: "In a group emergency situation, you would most likely:",
     type: "radio",
     options: [
-      "Building something from scratch",
-      "Understanding how machines work",
-      "Designing a cool product or prototype",
-      "Testing how different tools function"
+      "Take charge and coordinate the response",
+      "Stay calm and provide immediate practical help",
+      "Follow protocols and ensure safety procedures",
+      "Support others emotionally and maintain morale"
     ]
   },
   {
     id: 9,
-    text: "You're given a chance to join a school trip to explore a new place. What are you looking forward to?",
+    text: "Your relationship with technology is:",
     type: "radio",
     options: [
-      "Discovering how things work in different environments",
-      "Meeting people and learning about their lives",
-      "Taking notes, pictures, and documenting the trip",
-      "Exploring new ideas and future possibilities"
+      "I love coding, building systems, and troubleshooting technical issues",
+      "I use it as a tool to enhance my work efficiency",
+      "I'm comfortable with standard applications but not programming",
+      "I prefer hands-on physical work over digital tools"
     ]
   },
   {
     id: 10,
-    text: "Your class is preparing a charity event next month. What task do you choose?",
+    text: "What type of project excites you most?",
     type: "radio",
     options: [
-      "Create the checklist and assign duties",
-      "Budget the expenses and plan the event",
-      "Prepare the materials and schedule",
-      "Coordinate communication between the group"
+      "Discovering something new through research and experimentation",
+      "Designing and building a physical structure or product",
+      "Creating art, media, or visual experiences",
+      "Improving how organizations or communities function"
     ]
   },
   {
     id: 11,
-    text: "Your school is hosting a talent show at the end of the year. What role do you want?",
+    text: "When making important decisions, you rely most on:",
     type: "radio",
     options: [
-      "Perform on stage – sing, dance, or act",
-      "Host or MC the event with confidence",
-      "Work behind the scenes on lights/sound",
-      "Promote the event and design materials"
+      "Data, statistics, and measurable evidence",
+      "Expert consultation and established best practices",
+      "Intuition and past experience",
+      "Consensus and input from affected people"
     ]
   },
   {
     id: 12,
-    text: "Your mathematics score?",
+    text: "Your tolerance for routine and repetition is:",
     type: "radio",
     options: [
-      "0 – 35",
-      "35 – 55",
-      "55 – 75",
-      "75 – 100"
+      "High - I find structure and routine comforting",
+      "Moderate - I can handle routine but need some variety",
+      "Low - I need constant change and new challenges",
+      "I can optimize routine tasks to make them efficient"
     ]
   },
   {
     id: 13,
-    text: "Your physics score?",
+    text: "In conversations, you naturally:",
     type: "radio",
     options: [
-      "0 – 35",
-      "35 – 55",
-      "55 – 75",
-      "75 – 100"
+      "Focus on facts, logic, and accurate information",
+      "Listen actively and show empathy for feelings",
+      "Share stories and use vivid descriptions",
+      "Guide discussion toward practical outcomes"
     ]
   },
   {
     id: 14,
-    text: "Your biology score?",
+    text: "Your approach to physical versus mental work is:",
     type: "radio",
     options: [
-      "0 – 35",
-      "35 – 55",
-      "55 – 75",
-      "75 – 100"
+      "I prefer mental challenges and intellectual work",
+      "I enjoy balanced combination of both",
+      "I thrive on physical activity and hands-on tasks",
+      "I prefer physical work but with planning elements"
     ]
   },
   {
     id: 15,
-    text: "Your chemistry score?",
+    text: "When evaluating success, you measure by:",
     type: "radio",
     options: [
-      "0 – 35",
-      "35 – 55",
-      "55 – 75",
-      "75 – 100"
+      "Scientific accuracy and quality of results",
+      "Positive impact on people's lives",
+      "Innovation and originality of solution",
+      "Efficiency and profitability achieved"
     ]
   },
   {
     id: 16,
-    text: "Your business score?",
+    text: "Your comfort level with uncertainty and ambiguity is:",
     type: "radio",
     options: [
-      "0 – 35",
-      "35 – 55",
-      "55 – 75",
-      "75 – 100"
+      "Low - I need clear guidelines and procedures",
+      "Moderate - I can adapt but prefer some structure",
+      "High - I thrive in ambiguous and changing situations",
+      "I can handle uncertainty when there's a clear goal"
     ]
   },
   {
     id: 17,
-    text: "Your economics score?",
+    text: "What motivates you most in your work?",
     type: "radio",
     options: [
-      "0 – 35",
-      "35 – 55",
-      "55 – 75",
-      "75 – 100"
+      "Intellectual curiosity and advancing knowledge",
+      "Saving lives and improving health",
+      "Financial success and business growth",
+      "Self-expression and creative freedom"
     ]
   },
   {
     id: 18,
-    text: "Your art/music/dancing score?",
+    text: "How do you respond to criticism of your work?",
     type: "radio",
     options: [
-      "0 – 35",
-      "35 – 55",
-      "55 – 75",
-      "75 – 100"
+      "Analyze it objectively to improve quality",
+      "Feel concerned about others' wellbeing and perceptions",
+      "Defend my methods if I believe they're correct",
+      "Use it as learning opportunity for growth"
     ]
   },
   {
     id: 19,
-    text: "Your psychology score?",
+    text: "Your preferred leadership style is:",
+    type: "radio",
+    options: [
+      "Lead by expertise and technical knowledge",
+      "Lead through vision and inspiration",
+      "Lead by organizing and delegating efficiently",
+      "Lead through collaboration and team empowerment"
+    ]
+  },
+  {
+    id: 20,
+    text: "When you complete a task, your priority is:",
+    type: "radio",
+    options: [
+      "Precision and accuracy of every detail",
+      "Positive outcome for people involved",
+      "Innovative or aesthetic quality of result",
+      "Meeting deadlines and budget constraints"
+    ]
+  },
+  {
+    id: 21,
+    text: "In your free time, you prefer:",
+    type: "radio",
+    options: [
+      "Reading, research, or intellectual hobbies",
+      "Volunteering or helping in your community",
+      "Creating art, music, or other creative projects",
+      "Outdoor activities, sports, or practical hobbies"
+    ]
+  },
+  {
+    id: 22,
+    text: "Your ethical decision-making is guided by:",
+    type: "radio",
+    options: [
+      "Logical analysis of outcomes and consequences",
+      "Compassion and minimizing harm to others",
+      "Following established rules and regulations",
+      "Balancing multiple stakeholder interests"
+    ]
+  },
+  {
+    id: 23,
+    text: "How do you handle high-pressure deadlines?",
+    type: "radio",
+    options: [
+      "Thrive under pressure and deliver best work",
+      "Stay focused but feel stressed internally",
+      "Need careful planning to avoid last-minute pressure",
+      "Perform well but prefer more time for quality"
+    ]
+  },
+  {
+    id: 24,
+    text: "Your mathematics/quantitative skills score (0-100):",
     type: "radio",
     options: [
       "0 – 35",
@@ -199,67 +254,69 @@ export const questionsData: Question[] = [
     ]
   },
   {
-    id: 20,
-    text: "How many hours do you study per day on average?",
-    type: "radio",
-    options: [
-      "0 – 3",
-      "3 – 6",
-      "6 – 10",
-      "10 – 15"
-    ]
-  },
-  {
-    id: 21,
-    text: "How many hours do you spend on self-study per week?",
-    type: "radio",
-    options: [
-      "0 – 3",
-      "3 – 6",
-      "6 – 10",
-      "10 – 15"
-    ]
-  },
-  {
-    id: 22,
-    text: "Do you attend any extra classes or tutoring sessions?",
-    type: "radio",
-    options: [
-      "Yes",
-      "No"
-    ]
-  },
-  {
-    id: 23,
-    text: "Do you attend any extracurricular activities?",
-    type: "radio",
-    options: [
-      "Yes",
-      "No"
-    ]
-  },
-  {
-    id: 24,
-    text: "Which career do you see yourself pursuing after your studies?",
-    type: "text"
-  },
-  {
     id: 25,
-    text: "Which of the following skills do you feel confident in?",
-    type: "checkbox",
+    text: "Your science (Physics/Chemistry) score (0-100):",
+    type: "radio",
     options: [
-      "problem solving",
-      "teamwork",
-      "growth mindset",
-      "multitasking",
-      "communication",
-      "time management",
-      "digital literacy",
-      "leadership",
-      "critical thinking",
-      "adaptability",
-      "creativity",
-      "decision making"
+      "0 – 35",
+      "35 – 55",
+      "55 – 75",
+      "75 – 100"
+    ]
+  },
+  {
+    id: 26,
+    text: "Your biology/life sciences score (0-100):",
+    type: "radio",
+    options: [
+      "0 – 35",
+      "35 – 55",
+      "55 – 75",
+      "75 – 100"
+    ]
+  },
+  {
+    id: 27,
+    text: "Your business/economics score (0-100):",
+    type: "radio",
+    options: [
+      "0 – 35",
+      "35 – 55",
+      "55 – 75",
+      "75 – 100"
+    ]
+  },
+  {
+    id: 28,
+    text: "Your computer science/IT skills (0-100):",
+    type: "radio",
+    options: [
+      "0 – 35",
+      "35 – 55",
+      "55 – 75",
+      "75 – 100"
+    ]
+  },
+  {
+    id: 29,
+    text: "Your arts/creative subjects score (0-100):",
+    type: "radio",
+    options: [
+      "0 – 35",
+      "35 – 55",
+      "55 – 75",
+      "75 – 100"
+    ]
+  },
+  {
+    id: 30,
+    text: "Your social sciences/humanities score (0-100):",
+    type: "radio",
+    options: [
+      "0 – 35",
+      "35 – 55",
+      "55 – 75",
+      "75 – 100"
     ]
   }
 ];

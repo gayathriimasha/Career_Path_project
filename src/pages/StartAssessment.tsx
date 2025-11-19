@@ -108,7 +108,7 @@ export default function StartAssessment() {
                     <h2 className="text-2xl font-['Questrial'] mb-6 text-center">What to Expect</h2>
                     <div className="grid md:grid-cols-3 gap-6 text-center">
                         <div>
-                            <div className="text-3xl font-bold text-[#ABE6C4] font-['Questrial'] mb-2">25</div>
+                            <div className="text-3xl font-bold text-[#ABE6C4] font-['Questrial'] mb-2">30</div>
                             <p className="text-sm text-gray-400 font-['Poppins']">Thoughtful questions about your interests and preferences</p>
                         </div>
                         <div>

@@ -32,12 +32,4 @@ dist-ssr
 .env.test
 .env.production
 
-# Python ML
-ml/env/
-ml/__pycache__/
-ml/src/__pycache__/
-ml/models/*.joblib
-ml/models/*.pkl
-*.pyc
-__pycache__/
 nul

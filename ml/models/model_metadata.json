@@ -1,0 +1,22 @@
+{
+  "accuracy": 0.9886363636363636,
+  "cv_mean": 0.9829545454545455,
+  "cv_std": 0.0031120599858248145,
+  "n_samples": 2200,
+  "n_features": 38,
+  "classes": [
+    "Agriculture",
+    "Architecture",
+    "Business & Finance",
+    "Community & Social Services",
+    "Creative",
+    "Education",
+    "Engineering",
+    "Hospitality",
+    "Information Technology",
+    "Medical",
+    "Science"
+  ],
+  "model_type": "XGBoost",
+  "version": "2.0"
+}

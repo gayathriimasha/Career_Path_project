@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronRight, Home, CheckCircle2, Circle, ExternalLink } from "lucide-react";
-import { roadmaps, getDefaultRoadmap, type CareerRoadmap } from "../data/roadmaps";
+import { roadmaps, type CareerRoadmap } from "../data/roadmaps";
 
 export default function SkillRoadmap() {
   const [searchParams] = useSearchParams();
@@ -17,7 +17,7 @@ export default function SkillRoadmap() {
 
   useEffect(() => {
     if (careerName) {
-      const foundRoadmap = roadmaps[careerName] || getDefaultRoadmap(careerName);
+      const foundRoadmap = roadmaps[careerName];
       setRoadmap(foundRoadmap);
     }
   }, [careerName]);

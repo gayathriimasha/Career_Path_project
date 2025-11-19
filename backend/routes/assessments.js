@@ -1,34 +1,80 @@
 const express = require("express")
 const Assessment = require("../models/Assessment")
+const axios = require("axios")
 const router = express.Router()
+
+const ML_SERVICE_URL = process.env.ML_SERVICE_URL || "http://localhost:8000"
 
 // Submit assessment
 router.post("/submit", async (req, res) => {
   try {
     const { userId, userEmail, userName, answers } = req.body
 
-    // Calculate scores from answers
-    const scores = calculateScores(answers)
-    const traits = calculateTraits(answers)
+    // Validate answers
+    if (!answers || !Array.isArray(answers)) {
+      return res.status(400).json({
+        message: "Invalid request: 'answers' must be an array",
+        received: typeof answers
+      })
+    }
 
+    // Call ML service for predictions
+    let predictions = []
+    let mlMetadata = {}
+
+    try {
+      console.log("Calling ML service with answers:", answers.length, "answers")
+      const mlResponse = await axios.post(`${ML_SERVICE_URL}/predict`, {
+        answers: answers
+      }, {
+        timeout: 10000
+      })
+
+      predictions = mlResponse.data.predictions
+      mlMetadata = mlResponse.data.metadata
+
+      console.log("ML prediction successful:", predictions)
+    } catch (mlError) {
+      console.error("ML service error:", mlError.message)
+      if (mlError.response) {
+        console.error("ML service response status:", mlError.response.status)
+        console.error("ML service response data:", mlError.response.data)
+      }
+      return res.status(503).json({
+        message: "ML service unavailable. Please ensure the ML service is running.",
+        error: mlError.response?.data || mlError.message
+      })
+    }
+
+    // Extract academic scores for storage
+    const scores = extractAcademicScores(answers)
+
+    // Create assessment with predictions
     const assessment = new Assessment({
       userId,
       userEmail,
       userName,
       answers,
       scores,
-      traits,
+      predictions: predictions.map(p => ({
+        career: p.career,
+        confidence: p.confidence,
+        subcareers: p.subcareers
+      })),
+      mlMetadata,
+      traits: []
     })
 
     const savedAssessment = await assessment.save()
+
     res.status(201).json({
       message: "Assessment submitted successfully",
       assessmentId: savedAssessment._id,
-      scores,
-      traits,
+      predictions: predictions
     })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    console.error("Assessment error:", error)
+    res.status(500).json({ message: error.message })
   }
 })
 
@@ -77,8 +123,8 @@ router.get("/", async (req, res) => {
   }
 })
 
-// Helper function to calculate academic scores
-function calculateScores(answers) {
+// Helper function to extract academic scores
+function extractAcademicScores(answers) {
   const scoreMapping = {
     "0 – 35": 1,
     "35 – 55": 2,
@@ -88,16 +134,15 @@ function calculateScores(answers) {
 
   const scores = {}
 
-  // Map question IDs to subjects
+  // Map question IDs to subjects (updated for new question structure)
   const subjectMapping = {
-    12: "mathematics",
-    13: "physics",
-    14: "biology",
-    15: "chemistry",
-    16: "business",
-    17: "economics",
-    18: "arts",
-    19: "psychology",
+    24: "mathematics",
+    25: "science",
+    26: "biology",
+    27: "business",
+    28: "computerScience",
+    29: "arts",
+    30: "socialSciences"
   }
 
   answers.forEach((answer) => {
@@ -108,43 +153,6 @@ function calculateScores(answers) {
   })
 
   return scores
-}
-
-// Helper function to calculate personality traits
-function calculateTraits(answers) {
-  const traits = {
-    problemSolving: 0,
-    leadership: 0,
-    creativity: 0,
-    analytical: 0,
-    social: 0,
-  }
-
-  // Analyze behavioral questions (4-11) to determine traits
-  answers.forEach((answer) => {
-    if (answer.questionId >= 4 && answer.questionId <= 11) {
-      const value = answer.value
-
-      // Simple trait calculation based on answer patterns
-      if (value.includes("solve") || value.includes("logic") || value.includes("step-by-step")) {
-        traits.problemSolving += 1
-      }
-      if (value.includes("lead") || value.includes("organize") || value.includes("manage")) {
-        traits.leadership += 1
-      }
-      if (value.includes("design") || value.includes("create") || value.includes("build")) {
-        traits.creativity += 1
-      }
-      if (value.includes("analyze") || value.includes("understand") || value.includes("research")) {
-        traits.analytical += 1
-      }
-      if (value.includes("help") || value.includes("support") || value.includes("teach")) {
-        traits.social += 1
-      }
-    }
-  })
-
-  return traits
 }
 
 module.exports = router

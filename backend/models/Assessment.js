@@ -48,12 +48,20 @@ const assessmentSchema = new mongoose.Schema(
     },
     // Personality traits derived from behavioral questions
     traits: {
-      problemSolving: Number,
-      leadership: Number,
-      creativity: Number,
-      analytical: Number,
-      social: Number,
+      type: mongoose.Schema.Types.Mixed,
+      default: {},
     },
+    // ML predictions
+    predictions: [{
+      career: String,
+      confidence: Number,
+      subcareers: [String]
+    }],
+    // ML model metadata
+    mlMetadata: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {},
+    }
   },
   {
     timestamps: true,

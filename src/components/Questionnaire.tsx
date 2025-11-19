@@ -47,7 +47,7 @@ const StyledQuestionContainer: React.FC<StyledQuestionContainerProps> = ({ quest
         <div className="w-full text-white text-[28px] font-normal font-['Questrial'] leading-tight">
             {question}
         </div>
-        <div className={isLastQuestion ? "w-full grid grid-cols-3 gap-[15px]" : "w-full flex flex-col gap-[15px]"}>
+        <div className="w-full flex flex-col gap-[15px]">
             {children}
         </div>
     </div>
