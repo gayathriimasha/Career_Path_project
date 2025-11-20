@@ -1,22 +1,17 @@
-"use client"
-
-import type React from "react"
-
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useToast } from "@/components/ui/use-toast"
-import { Eye, EyeOff } from 'lucide-react' // Import Lucide icons
+import { Eye, EyeOff, Home } from 'lucide-react'
+import { motion } from "framer-motion"
 
 export default function Login() {
-  const { toast } = useToast()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   })
   const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false) // New loading state
-  const [error, setError] = useState<string | null>(null) // New error state
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -25,7 +20,7 @@ export default function Login() {
       [name]: value,
     }))
     if (error) {
-      setError(null) // Clear error on input change
+      setError(null)
     }
   }
 
@@ -46,124 +41,116 @@ export default function Login() {
       const data = await response.json()
 
       if (response.ok) {
-        // Store token (e.g., in localStorage)
         localStorage.setItem("userToken", data.token)
-        // Store user info if needed
         localStorage.setItem("userInfo", JSON.stringify(data.user))
-
-        toast({
-          title: "Welcome back!",
-          description: "You've successfully logged in. Redirecting to questionnaire...",
-        })
-        setTimeout(() => {
-          navigate("/questionnaire")
-        }, 1500) // Shorten delay for better UX
+        navigate("/")
       } else {
         setError(data.message || "Login failed. Please check your credentials.")
-        toast({
-          title: "Login Failed",
-          description: data.message || "Invalid email or password.",
-          variant: "destructive",
-        })
       }
     } catch (err) {
       console.error("Login error:", err)
       setError("Network error or server is unreachable.")
-      toast({
-        title: "Error",
-        description: "Could not connect to the server. Please try again later.",
-        variant: "destructive",
-      })
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen w-full bg-[#1A1A1A] px-[80px] py-[40px] flex items-center justify-center">
-      <div className="flex items-center justify-center gap-[120px]">
-        {/* Left Side - Text Content */}
-        <div className="flex items-center justify-center">
-          <div className="w-[600px] flex flex-col justify-center">
-            <h1 className="text-white text-[50px] font-['Questrial'] font-normal leading-tight text-center">
-              Welcome back!
-              <br />
-              Sign in to your
-              <br />
-              account
-            </h1>
-          </div>
+    <div className="min-h-screen bg-[#1a1a1a] text-white">
+      {/* Header */}
+      <div className="sticky top-0 z-50 bg-[#1a1a1a]/95 backdrop-blur-sm border-b border-gray-800">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-all duration-200 border border-gray-700"
+          >
+            <Home size={20} />
+            <span className="text-sm font-['Poppins']">Back to Home</span>
+          </button>
         </div>
-        {/* Right Side - Login Form */}
-        <div className="px-[40px] py-[50px] bg-[#242424] flex items-center gap-[10px] rounded-[20px]">
-          <div className="w-[486px] flex flex-col gap-[30px]">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-[35px]">
-              <div className="flex flex-col gap-[25px]">
-                {/* Email Address */}
-                <div className="h-[64px] px-[25px] py-[25px] bg-[#E0E3E4] rounded-[16px] flex items-end">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full bg-transparent text-[#707172] text-[15px] font-['Poppins'] font-medium placeholder-[#707172] border-none outline-none"
-                  />
-                </div>
-                {/* Password */}
-                <div className="h-[64px] px-[25px] py-[25px] bg-[#E0E3E4] rounded-[16px] flex justify-between items-center">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    required
-                    className="flex-1 bg-transparent text-[#707172] text-[15px] font-['Poppins'] font-medium placeholder-[#707172] border-none outline-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-[#707172] hover:text-[#555] focus:outline-none ml-2"
-                  >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                  </button>
-                </div>
-                {/* Remember Me */}
-                <div className="flex items-center space-x-2">
-                  <input type="checkbox" id="remember" className="w-4 h-4 accent-[#619E7A] rounded" />
-                  <label htmlFor="remember" className="text-[13px] text-[#707172] font-['Poppins']">
-                    Remember me
-                  </label>
-                </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 py-16 flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-full max-w-md"
+        >
+          <div className="text-center mb-8">
+            <div className="flex items-center gap-3 justify-center mb-4">
+              <div className="h-1 w-12 bg-[#ABE6C4] rounded-full"></div>
+              <span className="text-sm text-[#ABE6C4] font-['Poppins'] uppercase tracking-wide">Welcome Back</span>
+              <div className="h-1 w-12 bg-[#ABE6C4] rounded-full"></div>
+            </div>
+            <h1 className="text-4xl font-['Questrial'] mb-3">Sign in to your account</h1>
+            <p className="text-gray-400 font-['Poppins']">Continue your career discovery journey</p>
+          </div>
+
+          <div className="p-8 rounded-2xl bg-black/30 border border-gray-800">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              {/* Email */}
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full h-[60px] px-[19px] py-[22px] rounded-[15px] bg-[#1f1f1f] border border-gray-700 outline-none text-white text-[17px] font-normal font-['Questrial'] box-border focus:border-[#ABE6C4] focus:bg-[#252525] transition-all duration-300 placeholder:text-gray-500"
+                />
               </div>
-              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-              {/* Bottom Buttons */}
-              <div className="flex items-center gap-[16px]">
-                {/* Sign In Button */}
+
+              {/* Password */}
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full h-[60px] px-[19px] py-[22px] rounded-[15px] bg-[#1f1f1f] border border-gray-700 outline-none text-white text-[17px] font-normal font-['Questrial'] box-border focus:border-[#ABE6C4] focus:bg-[#252525] transition-all duration-300 placeholder:text-gray-500"
+                />
                 <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="flex-1 h-[46px] p-[16px] bg-[#619E7A] rounded-[14px] flex justify-center items-center gap-[8px] hover:bg-[#5a8f6f] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 focus:outline-none"
                 >
-                  <div className="text-[#D9D9D9] text-[15px] font-['Poppins'] font-medium">
-                    {isLoading ? "Signing In..." : "Sign In"}
-                  </div>
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
-                {/* Register Button */}
+              </div>
+
+              {error && (
+                <div className="bg-red-900/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg">
+                  <p className="text-sm font-['Poppins']">{error}</p>
+                </div>
+              )}
+
+              {/* Sign In Button */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] text-black font-['Poppins'] font-semibold hover:shadow-2xl hover:shadow-[#ABE6C4]/30 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
+              </button>
+
+              {/* Register Link */}
+              <div className="text-center">
+                <span className="text-gray-400 font-['Poppins'] text-sm">Don't have an account? </span>
                 <button
                   type="button"
                   onClick={() => navigate("/register")}
-                  disabled={isLoading}
-                  className="flex-1 h-[46px] p-[16px] bg-[rgba(177.64,177.64,177.64,0.15)] rounded-[14px] flex justify-center items-center gap-[8px] hover:bg-[rgba(177.64,177.64,177.64,0.25)] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-[#ABE6C4] font-['Poppins'] text-sm hover:underline"
                 >
-                  <div className="text-[#E3E3E3] text-[15px] font-['Poppins'] font-medium">Create Account</div>
+                  Create Account
                 </button>
               </div>
             </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

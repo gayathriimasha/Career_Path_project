@@ -15,9 +15,9 @@ interface InlineProgressTrackerProps {
 }
 
 const categories: Category[] = [
-    { name: 'start', startQuestion: 1, endQuestion: 3, displayName: 'START' },
-    { name: 'personal-traits', startQuestion: 4, endQuestion: 11, displayName: 'PERSONAL TRAITS' },
-    { name: 'career-matches', startQuestion: 12, endQuestion: 25, displayName: 'YOUR CAREER MATCHES' }
+    { name: 'start', startQuestion: 1, endQuestion: 3, displayName: 'PERSONAL INFO' },
+    { name: 'behavioral', startQuestion: 4, endQuestion: 23, displayName: 'BEHAVIORAL' },
+    { name: 'academic', startQuestion: 24, endQuestion: 30, displayName: 'ACADEMIC' }
 ];
 
 export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
@@ -73,7 +73,7 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                         <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'start' ? 'border-blue-500 bg-blue-500' : 'border-gray-500 bg-gray-700'
                             }`}></div>
                     )}
-                    <span className="text-sm font-medium text-gray-300">START</span>
+                    <span className="text-sm font-medium text-gray-300">PERSONAL<br />INFO</span>
                 </div>
 
                 {/* Line 1 with Progress */}
@@ -93,7 +93,7 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                     </div>
                 </div>
 
-                {/* Personal Traits Category */}
+                {/* Behavioral Category */}
                 <div className="flex flex-col items-center">
                     {isCategoryCompleted(categories[1]) ? (
                         <motion.div
@@ -106,16 +106,16 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                             </svg>
                         </motion.div>
                     ) : (
-                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'personal-traits' ? 'border-blue-500 bg-blue-500' : 'border-gray-500 bg-gray-700'
+                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'behavioral' ? 'border-blue-500 bg-blue-500' : 'border-gray-500 bg-gray-700'
                             }`}></div>
                     )}
-                    <span className="text-sm font-medium text-gray-300 text-center">PERSONAL<br />TRAITS</span>
+                    <span className="text-sm font-medium text-gray-300 text-center">BEHAVIORAL</span>
                 </div>
 
                 {/* Line 2 with Progress */}
                 <div className="flex-1 mx-4 relative">
                     <div className="h-1 bg-gray-600 rounded-full">
-                        {currentCategory.name === 'personal-traits' && (
+                        {currentCategory.name === 'behavioral' && (
                             <motion.div
                                 className="h-full bg-blue-500 rounded-full"
                                 initial={{ width: '0%' }}
@@ -129,7 +129,7 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                     </div>
                 </div>
 
-                {/* Career Matches Category */}
+                {/* Academic Category */}
                 <div className="flex flex-col items-center">
                     {isCategoryCompleted(categories[2]) ? (
                         <motion.div
@@ -142,10 +142,10 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                             </svg>
                         </motion.div>
                     ) : (
-                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'career-matches' ? 'border-blue-500 bg-blue-500' : 'border-gray-500 bg-gray-700'
+                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'academic' ? 'border-blue-500 bg-blue-500' : 'border-gray-500 bg-gray-700'
                             }`}></div>
                     )}
-                    <span className="text-sm font-medium text-gray-300 text-center">YOUR CAREER<br />MATCHES</span>
+                    <span className="text-sm font-medium text-gray-300 text-center">ACADEMIC</span>
                 </div>
             </div>
 

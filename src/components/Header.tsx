@@ -19,7 +19,14 @@ export const Header: React.FC = () => {
   };
 
   const handleAccountClick = () => {
-    setIsProfilePopupOpen(!isProfilePopupOpen);
+    // Check if user is authenticated
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) {
+      // Redirect to login if not authenticated
+      navigate('/login');
+    } else {
+      setIsProfilePopupOpen(!isProfilePopupOpen);
+    }
   };
 
   const closeProfilePopup = () => {

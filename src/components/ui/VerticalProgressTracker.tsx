@@ -20,10 +20,9 @@ interface StepConfig {
 }
 
 const steps: StepConfig[] = [
-    { key: 'start', label: 'START', startQuestion: 1, endQuestion: 3 },
-    { key: 'personality', label: 'PERSONALITY TRAITS', startQuestion: 4, endQuestion: 11 },
-    { key: 'career', label: 'CAREER PREFERENCES', startQuestion: 12, endQuestion: 25 },
-    { key: 'results', label: 'RESULTS', startQuestion: 25, endQuestion: 25 }
+    { key: 'personal', label: 'PERSONAL INFO', startQuestion: 1, endQuestion: 3 },
+    { key: 'behavioral', label: 'BEHAVIORAL', startQuestion: 4, endQuestion: 23 },
+    { key: 'academic', label: 'ACADEMIC', startQuestion: 24, endQuestion: 30 }
 ];
 
 export const VerticalProgressTracker: React.FC<VerticalProgressTrackerProps> = ({

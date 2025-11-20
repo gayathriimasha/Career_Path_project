@@ -1,14 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Home, Clock, Lock, TrendingUp } from "lucide-react";
 
 export default function StartAssessment() {
     const navigate = useNavigate();
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+    useEffect(() => {
+        // Check if user is authenticated
+        const userToken = localStorage.getItem("userToken");
+        if (!userToken) {
+            // Redirect to register page if not authenticated
+            navigate('/register');
+        } else {
+            setIsCheckingAuth(false);
+        }
+    }, [navigate]);
 
     const handleStart = () => {
         navigate('/questionnaire');
     };
+
+    if (isCheckingAuth) {
+        return (
+            <div className="min-h-screen bg-[#1a1a1a] text-white flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ABE6C4] mx-auto mb-4"></div>
+                    <p className="text-lg text-gray-400 font-['Poppins']">Checking authentication...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-[#1a1a1a] text-white overflow-hidden">
