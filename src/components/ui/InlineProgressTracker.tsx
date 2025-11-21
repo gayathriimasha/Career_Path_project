@@ -63,14 +63,14 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                         <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mb-2"
+                            className="w-10 h-10 bg-[#ABE6C4] rounded-full flex items-center justify-center mb-2"
                         >
-                            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                         </motion.div>
                     ) : (
-                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'start' ? 'border-blue-500 bg-blue-500' : 'border-gray-500 bg-gray-700'
+                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'start' ? 'border-[#ABE6C4] bg-[#ABE6C4]' : 'border-gray-500 bg-gray-700'
                             }`}></div>
                     )}
                     <span className="text-sm font-medium text-gray-300">PERSONAL<br />INFO</span>
@@ -81,14 +81,14 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                     <div className="h-1 bg-gray-600 rounded-full">
                         {currentCategory.name === 'start' && (
                             <motion.div
-                                className="h-full bg-blue-500 rounded-full"
+                                className="h-full bg-[#ABE6C4] rounded-full"
                                 initial={{ width: '0%' }}
                                 animate={{ width: `${getCurrentCategoryProgress()}%` }}
                                 transition={{ duration: 0.3 }}
                             />
                         )}
                         {isCategoryCompleted(categories[0]) && (
-                            <div className="h-full bg-green-500 rounded-full w-full" />
+                            <div className="h-full bg-[#ABE6C4] rounded-full w-full" />
                         )}
                     </div>
                 </div>
@@ -99,14 +99,14 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                         <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mb-2"
+                            className="w-10 h-10 bg-[#7CC9A9] rounded-full flex items-center justify-center mb-2"
                         >
-                            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                         </motion.div>
                     ) : (
-                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'behavioral' ? 'border-blue-500 bg-blue-500' : 'border-gray-500 bg-gray-700'
+                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'behavioral' ? 'border-[#7CC9A9] bg-[#7CC9A9]' : 'border-gray-500 bg-gray-700'
                             }`}></div>
                     )}
                     <span className="text-sm font-medium text-gray-300 text-center">BEHAVIORAL</span>
@@ -117,14 +117,14 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                     <div className="h-1 bg-gray-600 rounded-full">
                         {currentCategory.name === 'behavioral' && (
                             <motion.div
-                                className="h-full bg-blue-500 rounded-full"
+                                className="h-full bg-[#7CC9A9] rounded-full"
                                 initial={{ width: '0%' }}
                                 animate={{ width: `${getCurrentCategoryProgress()}%` }}
                                 transition={{ duration: 0.3 }}
                             />
                         )}
                         {isCategoryCompleted(categories[1]) && (
-                            <div className="h-full bg-green-500 rounded-full w-full" />
+                            <div className="h-full bg-[#7CC9A9] rounded-full w-full" />
                         )}
                     </div>
                 </div>
@@ -135,14 +135,14 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                         <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mb-2"
+                            className="w-10 h-10 bg-[#ABE6C4] rounded-full flex items-center justify-center mb-2"
                         >
-                            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                         </motion.div>
                     ) : (
-                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'academic' ? 'border-blue-500 bg-blue-500' : 'border-gray-500 bg-gray-700'
+                        <div className={`w-10 h-10 rounded-full border-2 mb-2 ${currentCategory.name === 'academic' ? 'border-[#ABE6C4] bg-[#ABE6C4]' : 'border-gray-500 bg-gray-700'
                             }`}></div>
                     )}
                     <span className="text-sm font-medium text-gray-300 text-center">ACADEMIC</span>
@@ -155,7 +155,7 @@ export const InlineProgressTracker: React.FC<InlineProgressTrackerProps> = ({
                     key={currentCategory.name}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-lg font-semibold text-blue-400"
+                    className="text-lg font-semibold text-[#ABE6C4]"
                 >
                     Current: {currentCategory.displayName}
                 </motion.div>

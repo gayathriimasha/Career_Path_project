@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
                 {/* Bottom Bar */}
                 <div className="pt-8 border-t border-gray-800 flex justify-between items-center">
                     <p className="text-gray-500 font-['Poppins'] text-sm">
-                        © 2024 Guided. All rights reserved.
+                        © 2025 Guided. All rights reserved.
                     </p>
                     <div className="flex gap-6">
                         <a href="#" className="text-gray-500 hover:text-[#ABE6C4] font-['Poppins'] text-sm transition-colors">Privacy Policy</a>

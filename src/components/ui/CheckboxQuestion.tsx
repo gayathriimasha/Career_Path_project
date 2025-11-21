@@ -38,7 +38,7 @@ export const CheckboxQuestion: React.FC<CheckboxQuestionProps> = ({
                             type="checkbox"
                             checked={selectedValues.includes(option)}
                             onChange={() => handleToggle(option)}
-                            className="w-4 h-4 text-blue-600 focus:ring-blue-500 rounded"
+                            className="w-4 h-4 text-[#ABE6C4] focus:ring-[#ABE6C4] rounded accent-[#ABE6C4]"
                         />
                         <span className="text-lg text-gray-200 capitalize">{option}</span>
                     </label>

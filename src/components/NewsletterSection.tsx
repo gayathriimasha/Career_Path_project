@@ -32,7 +32,7 @@ export const NewsletterSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative overflow-hidden rounded-[40px] bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 p-16"
+          className="relative overflow-hidden rounded-[40px] bg-gradient-to-br from-[#1a1a1a] via-[#1a1a1a] to-[#0f0f0f] border border-[#ABE6C4]/20 p-16"
         >
           {/* Background Decorations */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#ABE6C4] opacity-5 rounded-full blur-3xl"></div>
@@ -80,7 +80,7 @@ export const NewsletterSection: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="w-full h-16 pl-14 pr-6 bg-gray-800/50 border border-gray-700 rounded-2xl text-white placeholder-gray-500 focus:bg-gray-800 focus:border-[#ABE6C4] focus:outline-none transition-all duration-300 font-['Poppins']"
+                    className="w-full h-16 pl-14 pr-6 bg-[#0f0f0f] border-2 border-[#ABE6C4]/30 rounded-2xl text-white placeholder-gray-500 focus:bg-[#0f0f0f] focus:border-[#ABE6C4] focus:outline-none transition-all duration-300 font-['Poppins']"
                     required
                     disabled={isSubmitted}
                   />
@@ -89,8 +89,8 @@ export const NewsletterSection: React.FC = () => {
                   type="submit"
                   className={`w-full h-16 rounded-2xl font-['Poppins'] font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
                     isSubmitted
-                      ? 'bg-[#ABE6C4] hover:bg-[#ABE6C4] text-black'
-                      : 'bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] hover:shadow-2xl hover:shadow-[#ABE6C4]/40 hover:scale-105 text-black'
+                      ? 'bg-[#ABE6C4] hover:bg-[#ABE6C4] text-black shadow-lg shadow-[#ABE6C4]/30'
+                      : 'bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] hover:shadow-xl hover:shadow-[#ABE6C4]/50 hover:scale-105 text-black'
                   }`}
                   disabled={isSubmitted}
                 >

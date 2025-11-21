@@ -311,13 +311,13 @@ export default function SkillRoadmap() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.05 }}
-                  className="p-6 rounded-2xl bg-black/30 border border-gray-800 hover:border-[#ABE6C4]/30 transition-all duration-200 group"
+                  className="p-6 rounded-2xl bg-gradient-to-br from-[#1a1a1a] via-[#1a1a1a] to-[#0f0f0f] border border-[#ABE6C4]/20 hover:border-[#ABE6C4]/60 transition-all duration-200 group hover:shadow-lg hover:shadow-[#ABE6C4]/10"
                 >
                   <div className="text-center">
-                    <div className="w-12 h-12 rounded-full bg-[#ABE6C4]/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#ABE6C4]/20 transition-colors duration-200">
-                      <span className="text-2xl">✦</span>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ABE6C4]/10 to-[#7CC9A9]/10 flex items-center justify-center mx-auto mb-3 group-hover:from-[#ABE6C4]/20 group-hover:to-[#7CC9A9]/20 transition-colors duration-200">
+                      <span className="text-2xl text-[#ABE6C4]">✦</span>
                     </div>
-                    <p className="text-sm font-['Poppins'] text-gray-300">
+                    <p className="text-sm font-['Poppins'] text-gray-300 group-hover:text-white transition-colors duration-200">
                       {skill}
                     </p>
                   </div>

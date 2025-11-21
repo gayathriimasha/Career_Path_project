@@ -1,0 +1,30 @@
+<svg width="300" height="192" viewBox="0 0 300 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="150" cy="96" r="80" fill="#ABE6C4" opacity="0.08"/>
+
+  <!-- Team of Three People -->
+  <!-- Person 1 (Left) -->
+  <circle cx="90" cy="80" r="18" fill="#7CC9A9"/>
+  <path d="M65 130 Q90 105, 115 130" stroke="#7CC9A9" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Person 2 (Center - Elevated) -->
+  <circle cx="150" cy="65" r="20" fill="#ABE6C4"/>
+  <path d="M123 118 Q150 90, 177 118" stroke="#ABE6C4" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Person 3 (Right) -->
+  <circle cx="210" cy="80" r="18" fill="#7CC9A9"/>
+  <path d="M185 130 Q210 105, 235 130" stroke="#7CC9A9" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Connection Lines -->
+  <line x1="105" y1="90" x2="135" y2="75" stroke="#ABE6C4" stroke-width="2" opacity="0.4" stroke-dasharray="4 4"/>
+  <line x1="165" y1="75" x2="195" y2="90" stroke="#ABE6C4" stroke-width="2" opacity="0.4" stroke-dasharray="4 4"/>
+
+  <!-- Support Icons -->
+  <circle cx="150" cy="150" r="8" fill="#ABE6C4" opacity="0.3"/>
+  <circle cx="120" cy="155" r="6" fill="#7CC9A9" opacity="0.3"/>
+  <circle cx="180" cy="155" r="6" fill="#7CC9A9" opacity="0.3"/>
+
+  <!-- Decorative Stars -->
+  <path d="M250 30 L252 35 L257 35 L253 38 L255 43 L250 40 L245 43 L247 38 L243 35 L248 35 Z" fill="#ABE6C4" opacity="0.5"/>
+  <path d="M50 40 L51 43 L54 43 L52 45 L53 48 L50 46 L47 48 L48 45 L46 43 L49 43 Z" fill="#7CC9A9" opacity="0.5"/>
+</svg>

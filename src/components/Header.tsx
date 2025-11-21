@@ -65,13 +65,18 @@ export const Header: React.FC = () => {
             >
               Create Account
             </Button>
-            <div
+            <motion.div
               ref={accountIconRef}
               onClick={handleAccountClick}
-              className="ml-2 w-10 h-10 rounded-full bg-gray-800 border border-gray-700 hover:border-[#ABE6C4] flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"
+              className="ml-2 w-10 h-10 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-[#ABE6C4] flex items-center justify-center cursor-pointer relative overflow-hidden group"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <User className="text-gray-400 hover:text-[#ABE6C4]" size={20} />
-            </div>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-[#ABE6C4]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              ></motion.div>
+              <User className="text-gray-400 group-hover:text-[#ABE6C4] transition-colors duration-300 relative z-10" size={20} />
+            </motion.div>
           </nav>
         </div>
       </motion.header>
