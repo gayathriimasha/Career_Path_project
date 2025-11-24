@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
         transition={{ duration: 0.5 }}
         className="sticky top-0 z-50 backdrop-blur-md bg-[#1a1a1a]/80 border-b border-gray-800"
       >
-        <div className="flex items-center justify-between px-[80px] py-6">
+        <div className="flex items-center justify-between px-[80px] py-4">
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="cursor-pointer"

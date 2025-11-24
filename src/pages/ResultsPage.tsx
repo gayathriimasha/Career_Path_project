@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Home, TrendingUp, Award, Lightbulb, ArrowRight } from "lucide-react";
+import { Home, TrendingUp, Award, Lightbulb, ArrowRight, Map, RefreshCw } from "lucide-react";
 
 interface CareerPrediction {
   career: string;
@@ -102,6 +102,102 @@ export default function ResultsPage() {
   const predictions = assessment.predictions;
   const topPrediction = predictions[0];
 
+  // Function to determine which illustration to show based on career
+  const getCareerIllustration = (careerName: string): string => {
+    const career = careerName.toLowerCase();
+
+    // Medical-related careers
+    if (career.includes('medical') || career.includes('doctor') || career.includes('physician') ||
+        career.includes('nurse') || career.includes('surgeon') || career.includes('healthcare') ||
+        career.includes('hospital') || career.includes('clinical') || career.includes('pharmacist') ||
+        career.includes('dentist') || career.includes('paramedic') || career.includes('therapist') ||
+        career.includes('psychiatrist') || career.includes('radiologist')) {
+      return '/assets/medical.png';
+    }
+
+    // IT-related careers
+    if (career.includes('software') || career.includes('developer') || career.includes('programmer') ||
+        career.includes('computer') || career.includes('technology') || career.includes('IT') ||
+        career.includes('tech') || career.includes('web') || career.includes('app') ||
+        career.includes('cyber') || career.includes('network') || career.includes('database') ||
+        career.includes('systems') || career.includes('cloud') || career.includes('devops') ||
+        career.includes('full stack') || career.includes('frontend') || career.includes('backend')) {
+      return '/assets/IT.png';
+    }
+
+    // Social-related careers
+    if (career.includes('social') || career.includes('counselor') || career.includes('psychologist') ||
+        career.includes('social work') || career.includes('human resources') || career.includes('HR') ||
+        career.includes('community') || career.includes('public service') || career.includes('welfare') ||
+        career.includes('advocate') || career.includes('humanitarian') || career.includes('sociology') ||
+        career.includes('case manager') || career.includes('youth worker')) {
+      return '/assets/social.png';
+    }
+
+    // Science-related careers (pure research/science, not medical)
+    if (career.includes('scientist') || career.includes('research') || career.includes('biology') ||
+        career.includes('chemistry') || career.includes('physics') || career.includes('astronomy') ||
+        career.includes('geologist') || career.includes('mathematician') || career.includes('statistician') ||
+        career.includes('data scientist') || career.includes('analyst') || career.includes('laboratory') ||
+        career.includes('biologist') || career.includes('chemist') || career.includes('physicist')) {
+      return '/assets/science.png';
+    }
+
+    // Education-related careers
+    if (career.includes('teacher') || career.includes('professor') || career.includes('education') ||
+        career.includes('instructor') || career.includes('tutor') || career.includes('lecturer') ||
+        career.includes('trainer') || career.includes('coach') || career.includes('educator') ||
+        career.includes('academic') || career.includes('principal') || career.includes('dean')) {
+      return '/assets/education.png';
+    }
+
+    // Agriculture-related careers
+    if (career.includes('agriculture') || career.includes('farming') || career.includes('farm') ||
+        career.includes('agri') || career.includes('horticulture') || career.includes('veterinary') ||
+        career.includes('environmental') || career.includes('forestry') || career.includes('botanist') ||
+        career.includes('agronomist') || career.includes('livestock') || career.includes('crop')) {
+      return '/assets/agriculture.png';
+    }
+
+    // Business-related careers
+    if (career.includes('business') || career.includes('management') || career.includes('finance') ||
+        career.includes('accounting') || career.includes('entrepreneur') || career.includes('sales') ||
+        career.includes('marketing') || career.includes('commerce') || career.includes('banker') ||
+        career.includes('economist') || career.includes('consultant') || career.includes('analyst') ||
+        career.includes('executive') || career.includes('manager') || career.includes('ceo') ||
+        career.includes('cfo') || career.includes('operations') || career.includes('strategy')) {
+      return '/assets/business.png';
+    }
+
+    // Architecture-related careers
+    if (career.includes('architect') || career.includes('urban planning') || career.includes('civil') ||
+        career.includes('construction') || career.includes('building design') || career.includes('structural') ||
+        career.includes('landscape architect') || career.includes('interior design') || career.includes('planner')) {
+      return '/assets/architecture.png';
+    }
+
+    // Creativity-related careers
+    if (career.includes('artist') || career.includes('designer') || career.includes('creative') ||
+        career.includes('writer') || career.includes('musician') || career.includes('actor') ||
+        career.includes('photographer') || career.includes('graphic') ||
+        career.includes('animator') || career.includes('illustrator') || career.includes('media') ||
+        career.includes('advertising') || career.includes('content') ||
+        career.includes('video') || career.includes('film') || career.includes('audio')) {
+      return '/assets/creativity.png';
+    }
+
+    // Engineering (fallback to IT if tech-related, otherwise science)
+    if (career.includes('engineer')) {
+      if (career.includes('software') || career.includes('computer') || career.includes('IT')) {
+        return '/assets/IT.png';
+      }
+      return '/assets/science.png';
+    }
+
+    // Default fallback to science
+    return '/assets/science.png';
+  };
+
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white">
       {/* Header with back button */}
@@ -121,31 +217,52 @@ export default function ResultsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Ethical Disclaimer Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="p-6 rounded-2xl bg-[#ABE6C4]/10 border border-[#ABE6C4]/20 mb-8"
-        >
-          <div className="flex items-start gap-3">
-            <Lightbulb className="text-[#ABE6C4] flex-shrink-0 mt-1" size={24} />
-            <div>
-              <h3 className="font-['Questrial'] text-lg mb-2">Important Note</h3>
-              <p className="text-sm text-gray-300 font-['Poppins'] leading-relaxed">
-                These results are AI-generated suggestions based on your responses. They should be used as guidance, not definitive career decisions. Your potential is not limited to these recommendations. Always consider your personal circumstances, goals, and consult with career counselors for personalized advice.
-              </p>
+      <div className="max-w-7xl mx-auto px-6 pt-6 pb-12">
+        {/* Top Section: Important Note and Illustration */}
+        <div className="flex items-start gap-6 mb-[-80px] relative z-10">
+          {/* Important Note - Left */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex-1 p-6 rounded-2xl bg-[#ABE6C4]/10 border border-[#ABE6C4]/20"
+          >
+            <div className="flex items-start gap-3">
+              <Lightbulb className="text-[#ABE6C4] flex-shrink-0 mt-1" size={24} />
+              <div>
+                <h3 className="font-['Questrial'] text-lg mb-2">Important Note</h3>
+                <p className="text-sm text-gray-300 font-['Poppins'] leading-relaxed">
+                  These results are AI-generated suggestions based on your responses. They should be used as guidance, not definitive career decisions. Your potential is not limited to these recommendations. Always consider your personal circumstances, goals, and consult with career counselors for personalized advice.
+                </p>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Top Career Match */}
+          {/* Illustration - Right, extends down to match box */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex-shrink-0"
+          >
+            <div className="w-[280px]">
+              <img
+                src={getCareerIllustration(topPrediction.career)}
+                alt={`${topPrediction.career} Illustration`}
+                className="w-full h-auto object-contain opacity-90"
+              />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Top Career Match Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="p-8 rounded-2xl bg-gradient-to-br from-black/40 to-black/20 border border-gray-800 mb-8"
+          className="mb-8 relative"
+        >
+          <div className="p-12 rounded-2xl bg-gradient-to-br from-black/40 to-black/20 border border-gray-800 relative"
         >
           <div className="space-y-6">
             <div className="flex items-start justify-between flex-wrap gap-4">
@@ -162,7 +279,7 @@ export default function ResultsPage() {
                     `Predicted by our ${(assessment.mlMetadata.model_accuracy * 100).toFixed(1)}% accurate AI model`}
                 </p>
               </div>
-              <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-[#ABE6C4]/20 to-[#ABE6C4]/10 border border-[#ABE6C4]/30">
+              <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-[#ABE6C4]/20 to-[#ABE6C4]/10 border border-[#ABE6C4]/30 mt-5">
                 <TrendingUp size={20} className="text-[#ABE6C4]" />
                 <span className="text-lg font-['Poppins'] font-semibold text-white">
                   {(topPrediction.confidence * 100).toFixed(1)}% Match
@@ -180,6 +297,7 @@ export default function ResultsPage() {
               />
             </div>
           </div>
+          </div>
         </motion.div>
 
         {/* Specialized Career Paths */}
@@ -188,18 +306,32 @@ export default function ResultsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="p-6 rounded-2xl bg-black/30 border border-gray-800 mb-8"
+            className="p-6 rounded-2xl bg-gradient-to-br from-[#ABE6C4]/5 to-transparent border border-[#ABE6C4]/20 mb-8 relative overflow-hidden"
           >
-            <h2 className="text-2xl font-['Questrial'] mb-4">Specialized Paths in {topPrediction.career}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {topPrediction.subcareers.map((subcareer, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-[#ABE6C4]/30 transition-all duration-200 hover:scale-105"
-                >
-                  <p className="text-gray-300 font-['Poppins']">{subcareer}</p>
-                </div>
-              ))}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#ABE6C4]/10 to-transparent rounded-full blur-3xl"></div>
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="h-1 w-12 bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] rounded-full"></div>
+                <h2 className="text-2xl font-['Questrial'] text-white">Specialized Paths in {topPrediction.career}</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {topPrediction.subcareers.map((subcareer, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 + idx * 0.1 }}
+                    whileHover={{ scale: 1.05, y: -4 }}
+                    className="group p-5 rounded-xl bg-gradient-to-br from-black/60 to-black/40 border-2 border-[#ABE6C4]/20 hover:border-[#ABE6C4]/60 transition-all duration-300 hover:shadow-lg hover:shadow-[#ABE6C4]/20 relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ABE6C4]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="flex items-start gap-3 relative">
+                      <div className="w-2 h-2 bg-[#ABE6C4] rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-gray-200 font-['Poppins'] group-hover:text-white transition-colors">{subcareer}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
@@ -210,42 +342,52 @@ export default function ResultsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="p-6 rounded-2xl bg-black/30 border border-gray-800 mb-8"
+            className="p-6 rounded-2xl bg-gradient-to-br from-[#7CC9A9]/5 to-transparent border border-[#7CC9A9]/20 mb-8"
           >
-            <h2 className="text-2xl font-['Questrial'] mb-6">Other Strong Matches</h2>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-1 w-12 bg-gradient-to-r from-[#7CC9A9] to-[#ABE6C4] rounded-full"></div>
+              <h2 className="text-2xl font-['Questrial'] text-white">Other Strong Matches</h2>
+            </div>
             <div className="space-y-4">
               {predictions.slice(1).map((prediction, idx) => (
-                <div
+                <motion.div
                   key={idx}
-                  className="p-5 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-gray-700 transition-colors duration-200"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 + idx * 0.1 }}
+                  className="p-6 rounded-xl bg-gradient-to-r from-black/60 to-black/40 border-2 border-[#7CC9A9]/20"
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xl font-['Questrial']">{prediction.career}</h3>
-                    <span className="text-sm text-[#ABE6C4] font-['Poppins'] font-semibold">
-                      {(prediction.confidence * 100).toFixed(1)}% Match
-                    </span>
+                  <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-xl font-['Questrial'] text-white">{prediction.career}</h3>
+                        <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-[#7CC9A9]/20 to-[#7CC9A9]/10 border border-[#7CC9A9]/30">
+                          <span className="text-sm text-[#7CC9A9] font-['Poppins'] font-semibold">
+                            {(prediction.confidence * 100).toFixed(1)}% Match
+                          </span>
+                        </div>
+                      </div>
+                      <div className="w-full bg-gray-800/50 rounded-full h-2.5 overflow-hidden mb-4">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${prediction.confidence * 100}%` }}
+                          transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
+                          className="h-full bg-gradient-to-r from-[#7CC9A9] to-[#ABE6C4] rounded-full"
+                        />
+                      </div>
+                      {prediction.subcareers && prediction.subcareers.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {prediction.subcareers.map((sub, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className="text-xs px-3 py-1.5 rounded-full bg-[#7CC9A9]/10 border border-[#7CC9A9]/20 text-gray-300 font-['Poppins'] hover:bg-[#7CC9A9]/20 transition-colors"
+                            >
+                              {sub}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                   </div>
-                  <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden mb-4">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${prediction.confidence * 100}%` }}
-                      transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
-                      className="h-full bg-gradient-to-r from-gray-600 to-gray-500 rounded-full"
-                    />
-                  </div>
-                  {prediction.subcareers && prediction.subcareers.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {prediction.subcareers.map((sub, sIdx) => (
-                        <span
-                          key={sIdx}
-                          className="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 font-['Poppins']"
-                        >
-                          {sub}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -286,18 +428,30 @@ export default function ResultsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
         >
           <Link to={`/roadmap?career=${encodeURIComponent(topPrediction.career)}&assessmentId=${assessmentId}`}>
-            <button className="group px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] text-black font-['Poppins'] font-semibold hover:shadow-2xl hover:shadow-[#ABE6C4]/30 transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
-              <span>View Career Roadmap</span>
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative px-10 py-5 rounded-2xl bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] text-black font-['Poppins'] font-bold hover:shadow-2xl hover:shadow-[#ABE6C4]/40 transition-all duration-300 flex items-center gap-3 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <Map size={22} className="relative z-10" />
+              <span className="relative z-10">View Career Roadmap</span>
+              <ArrowRight size={22} className="group-hover:translate-x-2 transition-transform relative z-10" />
+            </motion.button>
           </Link>
           <Link to="/start-assessment">
-            <button className="px-8 py-4 rounded-2xl bg-gray-800/50 border border-gray-700 text-white font-['Poppins'] font-semibold hover:bg-gray-700/50 transition-all duration-300">
-              Retake Assessment
-            </button>
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative px-10 py-5 rounded-2xl bg-gradient-to-br from-gray-800/80 to-gray-900/80 border-2 border-[#ABE6C4]/30 text-white font-['Poppins'] font-bold hover:border-[#ABE6C4]/60 hover:shadow-xl hover:shadow-[#ABE6C4]/20 transition-all duration-300 flex items-center gap-3 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#ABE6C4]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <RefreshCw size={22} className="relative z-10 text-[#ABE6C4]" />
+              <span className="relative z-10">Retake Assessment</span>
+            </motion.button>
           </Link>
         </motion.div>
       </div>

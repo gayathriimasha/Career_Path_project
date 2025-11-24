@@ -199,7 +199,7 @@ export default function StartAssessment() {
                                 className="text-3xl font-bold text-transparent bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] bg-clip-text font-['Questrial'] mb-2"
                                 whileHover={{ scale: 1.1 }}
                             >
-                                12+
+                                10+
                             </motion.div>
                             <p className="text-sm text-gray-400 font-['Poppins']">Career categories analyzed by our ML model</p>
                         </motion.div>

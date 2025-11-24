@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronRight, Home, CheckCircle2, Circle, ExternalLink } from "lucide-react";
+import { ChevronDown, ChevronRight, Home, CheckCircle2, Circle, ExternalLink, Zap, Code, Cpu, BookOpen, Target, TrendingUp, Lightbulb } from "lucide-react";
 import { roadmaps, type CareerRoadmap } from "../data/roadmaps";
 
 export default function SkillRoadmap() {
@@ -164,31 +164,38 @@ export default function SkillRoadmap() {
                       {/* Milestone Card */}
                       <div className="ml-16">
                         <div
-                          className={`rounded-2xl border transition-all duration-300 ${
+                          className={`rounded-2xl border transition-all duration-300 relative overflow-hidden ${
                             isCompleted
-                              ? "bg-[#ABE6C4]/5 border-[#ABE6C4]/30"
-                              : "bg-black/30 border-gray-800 hover:border-gray-700"
+                              ? "bg-gradient-to-br from-[#0f0f0f] to-black border-[#ABE6C4]/40 shadow-lg shadow-[#ABE6C4]/10"
+                              : "bg-gradient-to-br from-black/60 to-black/40 border-gray-800 hover:border-gray-700"
                           }`}
                         >
+                          {/* Side gradient bar */}
+                          <div className={`absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#ABE6C4] to-[#7CC9A9] transition-opacity duration-300 ${isCompleted ? 'opacity-100' : 'opacity-20'}`}></div>
+
                           {/* Header */}
                           <div
                             className="p-6 cursor-pointer"
                             onClick={() => toggleMilestone(milestone.id)}
                           >
                             <div className="flex items-start justify-between gap-4">
-                              <div className="flex-1">
-                                <div className="flex items-center gap-3 mb-2">
-                                  <span className="text-sm text-gray-500 font-['Poppins']">
-                                    Phase {index + 1}
-                                  </span>
-                                  <span className="text-sm text-[#ABE6C4] font-['Poppins']">
+                              <div className="flex-1 pl-3">
+                                <div className="flex items-center gap-2 mb-3">
+                                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#ABE6C4]/10 to-[#7CC9A9]/10 border border-[#ABE6C4]/20">
+                                    <div className="w-2 h-2 rounded-full bg-[#ABE6C4]"></div>
+                                    <span className="text-xs text-[#ABE6C4] font-['Poppins'] font-semibold">
+                                      PHASE {index + 1}
+                                    </span>
+                                  </div>
+                                  <div className="h-1 w-8 bg-gradient-to-r from-[#ABE6C4]/30 to-transparent rounded-full"></div>
+                                  <span className="text-xs text-gray-400 font-['Poppins']">
                                     {milestone.duration}
                                   </span>
                                 </div>
-                                <h3 className="text-2xl font-['Questrial'] mb-2">
+                                <h3 className="text-2xl font-['Questrial'] mb-2 text-white">
                                   {milestone.title}
                                 </h3>
-                                <p className="text-gray-400 font-['Poppins'] text-sm">
+                                <p className="text-gray-400 font-['Poppins'] text-sm leading-relaxed">
                                   {milestone.description}
                                 </p>
                               </div>
@@ -198,19 +205,19 @@ export default function SkillRoadmap() {
                                     e.stopPropagation();
                                     toggleComplete(milestone.id);
                                   }}
-                                  className={`p-2 rounded-lg transition-all duration-200 ${
+                                  className={`p-2.5 rounded-xl transition-all duration-200 ${
                                     isCompleted
-                                      ? "bg-[#ABE6C4]/20 text-[#ABE6C4]"
-                                      : "bg-gray-800/50 text-gray-500 hover:bg-gray-700/50"
+                                      ? "bg-gradient-to-br from-[#ABE6C4] to-[#7CC9A9] text-black shadow-lg shadow-[#ABE6C4]/30"
+                                      : "bg-gray-800/50 text-gray-500 hover:bg-gray-700/50 border border-gray-700"
                                   }`}
                                 >
-                                  {isCompleted ? <CheckCircle2 size={24} /> : <Circle size={24} />}
+                                  {isCompleted ? <CheckCircle2 size={22} /> : <Circle size={22} />}
                                 </button>
                                 <motion.div
                                   animate={{ rotate: isExpanded ? 180 : 0 }}
                                   transition={{ duration: 0.3 }}
                                 >
-                                  <ChevronDown size={24} className="text-gray-500" />
+                                  <ChevronDown size={22} className="text-gray-500" />
                                 </motion.div>
                               </div>
                             </div>
@@ -229,17 +236,22 @@ export default function SkillRoadmap() {
                                 <div className="px-6 pb-6 space-y-6">
                                   {/* Skills to Learn */}
                                   <div>
-                                    <h4 className="text-sm font-['Poppins'] text-gray-400 uppercase tracking-wide mb-3">
-                                      Skills to Master
-                                    </h4>
+                                    <div className="flex items-center gap-3 mb-4">
+                                      <div className="h-0.5 w-10 bg-gradient-to-r from-[#ABE6C4] to-transparent rounded-full"></div>
+                                      <h4 className="text-sm font-['Poppins'] text-[#ABE6C4] uppercase tracking-wider font-semibold">
+                                        Skills to Master
+                                      </h4>
+                                    </div>
                                     <div className="space-y-2">
                                       {milestone.skills.map((skill, idx) => (
                                         <div
                                           key={idx}
-                                          className="flex items-start gap-3 p-3 rounded-lg bg-gray-900/50 border border-gray-800"
+                                          className="flex items-start gap-3 p-3 rounded-xl bg-transparent border border-[#ABE6C4]/20"
                                         >
-                                          <ChevronRight size={16} className="text-[#ABE6C4] mt-0.5 flex-shrink-0" />
-                                          <span className="text-sm text-gray-300 font-['Poppins']">
+                                          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#ABE6C4] to-[#7CC9A9] flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <CheckCircle2 size={14} className="text-black" />
+                                          </div>
+                                          <span className="text-sm text-white font-['Poppins'] leading-relaxed">
                                             {skill}
                                           </span>
                                         </div>
@@ -249,17 +261,22 @@ export default function SkillRoadmap() {
 
                                   {/* Resources */}
                                   <div>
-                                    <h4 className="text-sm font-['Poppins'] text-gray-400 uppercase tracking-wide mb-3">
-                                      Recommended Resources
-                                    </h4>
+                                    <div className="flex items-center gap-3 mb-4">
+                                      <div className="h-0.5 w-10 bg-gradient-to-r from-[#7CC9A9] to-transparent rounded-full"></div>
+                                      <h4 className="text-sm font-['Poppins'] text-[#7CC9A9] uppercase tracking-wider font-semibold">
+                                        Recommended Resources
+                                      </h4>
+                                    </div>
                                     <div className="space-y-2">
                                       {milestone.resources.map((resource, idx) => (
                                         <div
                                           key={idx}
-                                          className="flex items-center gap-3 p-3 rounded-lg bg-gray-900/50 border border-gray-800 hover:border-gray-700 transition-colors duration-200"
+                                          className="flex items-start gap-3 p-3 rounded-xl bg-transparent border border-[#7CC9A9]/20"
                                         >
-                                          <ExternalLink size={14} className="text-gray-500 flex-shrink-0" />
-                                          <span className="text-sm text-gray-300 font-['Poppins']">
+                                          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#7CC9A9] to-[#ABE6C4] flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <ExternalLink size={14} className="text-black" />
+                                          </div>
+                                          <span className="text-sm text-white font-['Poppins'] leading-relaxed">
                                             {resource}
                                           </span>
                                         </div>
@@ -276,7 +293,7 @@ export default function SkillRoadmap() {
                         <div
                           className={`absolute left-0 top-6 w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all duration-300 ${
                             isCompleted
-                              ? "bg-[#ABE6C4] border-[#ABE6C4]/30"
+                              ? "bg-gradient-to-br from-[#ABE6C4] to-[#7CC9A9] border-[#ABE6C4]/50 shadow-lg shadow-[#ABE6C4]/30"
                               : "bg-[#1a1a1a] border-gray-800"
                           }`}
                         >
@@ -303,26 +320,79 @@ export default function SkillRoadmap() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-2 md:grid-cols-3 gap-4"
             >
-              {roadmap.keySkills.map((skill, index) => (
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-0.5 w-10 bg-gradient-to-r from-[#ABE6C4] to-transparent rounded-full"></div>
+                <h4 className="text-sm font-['Poppins'] text-[#ABE6C4] uppercase tracking-wider font-semibold">
+                  Key Skills
+                </h4>
+              </div>
+
+              <div className="grid grid-cols-3 gap-8">
+                {/* Column 1 - First half of skills */}
+                <div className="space-y-4">
+                  {roadmap.keySkills.slice(0, Math.ceil(roadmap.keySkills.length / 2)).map((skill, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.08 }}
+                      className="flex items-start gap-3 p-5 rounded-xl bg-gradient-to-r from-black/40 to-black/20 border border-gray-800"
+                    >
+                      {/* Dot indicator */}
+                      <div className="w-2 h-2 rounded-full bg-[#ABE6C4] flex-shrink-0 mt-2.5"></div>
+
+                      {/* Skill text */}
+                      <p className="text-white font-['Poppins'] text-base leading-relaxed">
+                        {skill}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Column 2 - Second half of skills */}
+                <div className="space-y-4">
+                  {roadmap.keySkills.slice(Math.ceil(roadmap.keySkills.length / 2)).map((skill, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: (index + Math.ceil(roadmap.keySkills.length / 2)) * 0.08 }}
+                      className="flex items-start gap-3 p-5 rounded-xl bg-gradient-to-r from-black/40 to-black/20 border border-gray-800"
+                    >
+                      {/* Dot indicator */}
+                      <div className="w-2 h-2 rounded-full bg-[#ABE6C4] flex-shrink-0 mt-2.5"></div>
+
+                      {/* Skill text */}
+                      <p className="text-white font-['Poppins'] text-base leading-relaxed">
+                        {skill}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Column 3 - Illustration */}
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.05 }}
-                  className="p-6 rounded-2xl bg-gradient-to-br from-[#1a1a1a] via-[#1a1a1a] to-[#0f0f0f] border border-[#ABE6C4]/20 hover:border-[#ABE6C4]/60 transition-all duration-200 group hover:shadow-lg hover:shadow-[#ABE6C4]/10"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-black/40 to-black/20 border-2 border-[#ABE6C4]/20 p-10 relative overflow-hidden"
                 >
-                  <div className="text-center">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ABE6C4]/10 to-[#7CC9A9]/10 flex items-center justify-center mx-auto mb-3 group-hover:from-[#ABE6C4]/20 group-hover:to-[#7CC9A9]/20 transition-colors duration-200">
-                      <span className="text-2xl text-[#ABE6C4]">✦</span>
-                    </div>
-                    <p className="text-sm font-['Poppins'] text-gray-300 group-hover:text-white transition-colors duration-200">
-                      {skill}
-                    </p>
+                  {/* Decorative background pattern */}
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0" style={{
+                      backgroundImage: `linear-gradient(#ABE6C4 1px, transparent 1px), linear-gradient(90deg, #ABE6C4 1px, transparent 1px)`,
+                      backgroundSize: '30px 30px'
+                    }}></div>
                   </div>
+
+                  <img
+                    src="/assets/keyskills.png"
+                    alt="Key Skills Illustration"
+                    className="w-full h-auto object-contain relative z-10 scale-110"
+                  />
                 </motion.div>
-              ))}
+              </div>
             </motion.div>
           )}
 
@@ -333,26 +403,31 @@ export default function SkillRoadmap() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="space-y-4"
             >
-              {roadmap.industryInsights.map((insight, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-6 rounded-2xl bg-black/30 border border-gray-800 hover:border-gray-700 transition-all duration-200"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-[#ABE6C4]/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-[#ABE6C4]">💡</span>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-0.5 w-10 bg-gradient-to-r from-[#ABE6C4] to-transparent rounded-full"></div>
+                <h4 className="text-sm font-['Poppins'] text-[#ABE6C4] uppercase tracking-wider font-semibold">
+                  Industry Insights
+                </h4>
+              </div>
+              <div className="space-y-3">
+                {roadmap.industryInsights.map((insight, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-start gap-3 p-5 rounded-xl bg-transparent border border-[#ABE6C4]/20"
+                  >
+                    <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#ABE6C4] to-[#7CC9A9] flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Lightbulb size={14} className="text-black" />
                     </div>
-                    <p className="text-gray-300 font-['Poppins'] leading-relaxed">
+                    <p className="text-base text-white font-['Poppins'] leading-relaxed">
                       {insight}
                     </p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -362,24 +437,41 @@ export default function SkillRoadmap() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#ABE6C4]/10 to-transparent border border-[#ABE6C4]/20"
+          className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#0f0f0f] to-black border-2 border-[#ABE6C4]/30 relative overflow-hidden"
         >
-          <div className="max-w-2xl">
-            <h3 className="text-2xl font-['Questrial'] mb-3">Ready to Start Your Journey?</h3>
-            <p className="text-gray-400 font-['Poppins'] mb-6 leading-relaxed">
+          {/* Decorative corner accents */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#ABE6C4]/10 to-transparent rounded-bl-full"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-[#7CC9A9]/10 to-transparent rounded-tr-full"></div>
+
+          {/* Subtle grid background */}
+          <div className="absolute inset-0 opacity-[0.03]">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `linear-gradient(#ABE6C4 1px, transparent 1px), linear-gradient(90deg, #ABE6C4 1px, transparent 1px)`,
+              backgroundSize: '40px 40px'
+            }}></div>
+          </div>
+
+          <div className="max-w-2xl relative z-10">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-1 w-12 bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] rounded-full"></div>
+              <span className="text-xs text-[#ABE6C4] font-['Poppins'] uppercase tracking-wider font-semibold">Next Steps</span>
+            </div>
+
+            <h3 className="text-2xl font-['Questrial'] mb-3 text-white">Ready to Start Your Journey?</h3>
+            <p className="text-gray-300 font-['Poppins'] mb-6 leading-relaxed">
               Remember: This roadmap is a guide, not a strict rule. Everyone's learning journey is unique.
               Adapt it to your pace, explore detours that interest you, and most importantly — start building!
             </p>
             <div className="flex gap-4">
               <button
                 onClick={() => navigate("/results?assessmentId=" + searchParams.get("assessmentId"))}
-                className="px-6 py-3 rounded-xl bg-white text-black font-['Poppins'] hover:bg-gray-200 transition-all duration-200"
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] text-black font-['Poppins'] font-semibold hover:shadow-lg hover:shadow-[#ABE6C4]/30 transition-all duration-200"
               >
                 View Results Again
               </button>
               <button
                 onClick={() => navigate("/")}
-                className="px-6 py-3 rounded-xl bg-gray-800 text-white font-['Poppins'] hover:bg-gray-700 transition-all duration-200 border border-gray-700"
+                className="px-6 py-3 rounded-xl bg-gray-800/50 text-white font-['Poppins'] font-semibold hover:bg-gray-700/50 transition-all duration-200 border-2 border-gray-700 hover:border-[#ABE6C4]/30"
               >
                 Go to Home
               </button>

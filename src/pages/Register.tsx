@@ -44,16 +44,14 @@ export default function Register() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...formData,
-          nic: "N/A",
-          phoneNumber: "N/A"
-        }),
+        body: JSON.stringify(formData),
       })
 
       const data = await response.json()
 
       if (response.ok) {
+        console.log('✅ Registration successful for user:', formData.email);
+        alert('Account created successfully! Please login.');
         navigate("/login")
       } else {
         setError(data.message || "Registration failed. Please try again.")

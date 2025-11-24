@@ -33,3 +33,16 @@ dist-ssr
 .env.production
 
 nul
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# ML models (already tracked, but for reference)
+# ml/models/*.pkl
+# ml/models/*.json

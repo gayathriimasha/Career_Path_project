@@ -36,6 +36,8 @@ const UserProfilePopup: React.FC<UserProfilePopupProps> = ({ isOpen, onClose, tr
   }, [isOpen, triggerRef]);
 
   const handleLogout = () => {
+    console.log('✅ Logout successful');
+    alert('Logged out successfully!');
     localStorage.removeItem("userToken");
     localStorage.removeItem("userInfo");
     onClose();

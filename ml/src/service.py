@@ -30,10 +30,10 @@ def load_models():
     global model, label_encoder, feature_names, model_metadata
 
     try:
-        model_path = Path("models/career_model.pkl")
-        encoder_path = Path("models/label_encoder.pkl")
-        features_path = Path("models/feature_names.json")
-        metadata_path = Path("models/model_metadata.json")
+        model_path = Path("../models/career_model.pkl")
+        encoder_path = Path("../models/label_encoder.pkl")
+        features_path = Path("../models/feature_names.json")
+        metadata_path = Path("../models/model_metadata.json")
 
         model = joblib.load(model_path)
         label_encoder = joblib.load(encoder_path)
@@ -384,4 +384,4 @@ async def model_info():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

@@ -13,6 +13,8 @@ export const NewsletterSection: React.FC = () => {
     e.preventDefault();
     if (email.trim()) {
       setIsSubmitted(true);
+      console.log('✅ Newsletter subscription successful for:', email);
+      alert('Successfully subscribed to newsletter!');
       toast({
         title: "Success!",
         description: "You've successfully subscribed to our newsletter.",

@@ -1,36 +1,68 @@
 const mongoose = require("mongoose");
 
-const careerScoreSchema = new mongoose.Schema({
-  career: String,
-  A: Number,
-  B: Number,
-  S: Number,
-  S_final: Number,
-  ci: [Number]
-}, { _id: false });
-
 const predictionSchema = new mongoose.Schema(
   {
-    userId: {
-      type: String,
-      required: true,
-    },
+    // Reference to assessment
     assessmentId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Assessment",
       required: true,
     },
+    // User information
+    userId: {
+      type: String,
+      required: true,
+    },
+    userEmail: {
+      type: String,
+      required: true,
+    },
+    userName: {
+      type: String,
+      required: true,
+    },
+    // All career predictions (array of predictions)
+    predictions: [{
+      career: {
+        type: String,
+        required: true
+      },
+      confidence: {
+        type: Number,
+        required: true
+      },
+      subcareers: [String]
+    }],
+    // Top prediction details (first prediction)
     topCareer: {
-      main: String,
-      sub: String
+      type: String,
+      required: true
     },
-    topN: [careerScoreSchema],
-    reasons: [String],
-    lowConfidence: {
-      type: Boolean,
-      default: false
+    topConfidence: {
+      type: Number,
+      required: true
     },
-    createdAt: {
+    topSubcareers: [String],
+    // Academic scores from questionnaire
+    scores: {
+      mathematics: Number,
+      science: Number,
+      biology: Number,
+      business: Number,
+      computerScience: Number,
+      arts: Number,
+      socialSciences: Number
+    },
+    // ML model metadata
+    mlMetadata: {
+      model_version: String,
+      model_accuracy: Number,
+      prediction_timestamp: String,
+      features_used: [String],
+      model_type: String
+    },
+    // Timestamp when prediction was made
+    predictedAt: {
       type: Date,
       default: Date.now,
     }
@@ -39,5 +71,11 @@ const predictionSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Indexes for efficient querying
+predictionSchema.index({ userId: 1 });
+predictionSchema.index({ userEmail: 1 });
+predictionSchema.index({ topCareer: 1 });
+predictionSchema.index({ predictedAt: -1 });
 
 module.exports = mongoose.model("Prediction", predictionSchema);

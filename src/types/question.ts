@@ -9,9 +9,3 @@ export interface Answer {
   questionId: number;
   value: string | string[];
 }
-
-export interface QuestionnaireState {
-  currentIndex: number;
-  answers: Answer[];
-  direction: number;
-}

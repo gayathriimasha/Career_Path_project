@@ -3,12 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Question, Answer } from "../types/question";
 import { questionsData } from "../data/questions";
-import { RadioQuestion } from "../components/ui/RadioQuestion";
-import { TextQuestion } from "../components/ui/TextQuestion";
-import { CheckboxQuestion } from "../components/ui/CheckboxQuestion";
-import { NavigationButtons } from "../components/ui/NavigationButtons";
 import { VerticalProgressTracker } from "../components/ui/VerticalProgressTracker";
-import { Header } from "../components/Header";
 
 // Common styles
 const commonStyles = {
@@ -142,7 +137,10 @@ export default function Questionnaire() {
             }
 
             const result = await response.json();
-            console.log('Assessment submitted successfully:', result);
+            console.log('✅ Assessment submitted successfully!');
+            console.log('Assessment ID:', result.assessmentId);
+            console.log('Predictions received:', result.predictions?.length || 0);
+            alert('Assessment completed successfully!');
 
             setIsCompleted(true);
             navigate(`/results?assessmentId=${result.assessmentId}`); // Navigate using React Router

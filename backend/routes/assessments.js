@@ -1,5 +1,6 @@
 const express = require("express")
 const Assessment = require("../models/Assessment")
+const Prediction = require("../models/Prediction")
 const axios = require("axios")
 const router = express.Router()
 
@@ -67,9 +68,45 @@ router.post("/submit", async (req, res) => {
 
     const savedAssessment = await assessment.save()
 
+    console.log('✅ Assessment saved successfully to database!');
+    console.log('Assessment ID:', savedAssessment._id);
+    console.log('User:', savedAssessment.userName, '(', savedAssessment.userEmail, ')');
+    console.log('Predictions saved:', savedAssessment.predictions.length, 'career predictions');
+    savedAssessment.predictions.forEach((pred, idx) => {
+      console.log(`  ${idx + 1}. ${pred.career} - Confidence: ${(pred.confidence * 100).toFixed(1)}%`);
+      console.log(`     Subcareers: ${pred.subcareers.join(', ')}`);
+    });
+
+    // Save to Predictions collection with all data
+    const topPrediction = predictions[0] || {};
+    const predictionRecord = new Prediction({
+      assessmentId: savedAssessment._id,
+      userId,
+      userEmail,
+      userName,
+      predictions: predictions.map(p => ({
+        career: p.career,
+        confidence: p.confidence,
+        subcareers: p.subcareers || []
+      })),
+      topCareer: topPrediction.career,
+      topConfidence: topPrediction.confidence,
+      topSubcareers: topPrediction.subcareers || [],
+      scores,
+      mlMetadata
+    });
+
+    const savedPrediction = await predictionRecord.save();
+
+    console.log('✅ Prediction saved to Predictions collection!');
+    console.log('Prediction ID:', savedPrediction._id);
+    console.log('Top Career:', savedPrediction.topCareer);
+    console.log('All data saved: predictions, scores, mlMetadata, subcareers');
+
     res.status(201).json({
       message: "Assessment submitted successfully",
       assessmentId: savedAssessment._id,
+      predictionId: savedPrediction._id,
       predictions: predictions
     })
   } catch (error) {

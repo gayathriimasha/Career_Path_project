@@ -43,6 +43,8 @@ export default function Login() {
       if (response.ok) {
         localStorage.setItem("userToken", data.token)
         localStorage.setItem("userInfo", JSON.stringify(data.user))
+        console.log('✅ Login successful for user:', data.user.email);
+        alert('Login successful!');
         navigate("/")
       } else {
         setError(data.message || "Login failed. Please check your credentials.")

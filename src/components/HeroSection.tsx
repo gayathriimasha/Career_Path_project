@@ -7,7 +7,7 @@ export const HeroSection: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="overview" className="min-h-screen px-[80px] py-[80px] relative overflow-hidden" style={{ backgroundColor: '#1a1a1a' }}>
+    <section id="overview" className="min-h-screen px-[80px] pt-[50px] pb-[80px] relative overflow-hidden" style={{ backgroundColor: '#1a1a1a' }}>
       {/* Subtle Grid Pattern - Static */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
@@ -73,7 +73,7 @@ export const HeroSection: React.FC = () => {
             className="relative"
           >
             {/* HERO ILLUSTRATION */}
-            <div className="relative w-full h-[400px] mb-6 flex items-center justify-center">
+            <div className="relative w-full h-[480px] mb-6 flex items-center justify-center">
               <img
                 src="/assets/hero-placeholder.png"
                 alt="Career Discovery Illustration"
@@ -154,7 +154,7 @@ export const HeroSection: React.FC = () => {
               className="text-5xl font-bold font-['Questrial'] text-transparent bg-gradient-to-r from-[#ABE6C4] to-[#7CC9A9] bg-clip-text mb-2"
               whileHover={{ scale: 1.1 }}
             >
-              12+
+              10+
             </motion.div>
             <div className="text-gray-400 font-['Poppins']">Career Categories</div>
           </motion.div>
