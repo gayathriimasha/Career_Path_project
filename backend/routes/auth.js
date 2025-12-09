@@ -22,21 +22,21 @@ router.post("/register", async (req, res) => {
 
     // Validation checks
     if (!fullName || !email || !password || !confirmPassword) {
-      console.log("❌ Missing required fields");
+      console.log(" Missing required fields");
       return res.status(400).json({
         message: "All fields are required",
       });
     }
 
     if (password !== confirmPassword) {
-      console.log("❌ Passwords do not match");
+      console.log(" Passwords do not match");
       return res.status(400).json({
         message: "Passwords do not match",
       });
     }
 
     if (password.length < 6) {
-      console.log("❌ Password too short");
+      console.log(" Password too short");
       return res.status(400).json({
         message: "Password must be at least 6 characters long",
       });
@@ -47,13 +47,13 @@ router.post("/register", async (req, res) => {
     const existingUser = await User.findOne({ email: email.toLowerCase() });
 
     if (existingUser) {
-      console.log("❌ User already exists:", existingUser.email);
+      console.log(" User already exists:", existingUser.email);
       return res.status(400).json({
         message: "User with this email already exists",
       });
     }
 
-    console.log("✅ User does not exist, creating new user...");
+    console.log(" User does not exist, creating new user...");
 
     // Create new user object
     const newUser = new User({
@@ -67,7 +67,7 @@ router.post("/register", async (req, res) => {
     // Save user to database
     const savedUser = await newUser.save();
 
-    console.log("✅ USER SAVED TO DATABASE SUCCESSFULLY!");
+    console.log(" USER SAVED TO DATABASE SUCCESSFULLY!");
     console.log("User ID:", savedUser._id);
     console.log("Name:", savedUser.fullName);
     console.log("Email:", savedUser.email);
@@ -85,7 +85,7 @@ router.post("/register", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("❌ REGISTRATION ERROR:");
+    console.error(" REGISTRATION ERROR:");
     console.error("Error name:", error.name);
     console.error("Error message:", error.message);
     console.error("Error stack:", error.stack);
@@ -118,7 +118,7 @@ router.post("/login", async (req, res) => {
 
     // Validation
     if (!email || !password) {
-      console.log("❌ Missing email or password");
+      console.log(" Missing email or password");
       return res.status(400).json({
         message: "Email and password are required",
       });
@@ -130,7 +130,7 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email: email.toLowerCase() });
 
     if (!user) {
-      console.log("❌ User not found");
+      console.log(" User not found");
       return res.status(401).json({
         message: "Invalid email or password",
       });
@@ -142,13 +142,13 @@ router.post("/login", async (req, res) => {
     const isPasswordValid = await user.matchPassword(password);
 
     if (!isPasswordValid) {
-      console.log("❌ Invalid password");
+      console.log(" Invalid password");
       return res.status(401).json({
         message: "Invalid email or password",
       });
     }
 
-    console.log("✅ LOGIN SUCCESSFUL!");
+    console.log(" LOGIN SUCCESSFUL!");
     console.log("User ID:", user._id);
     console.log("Name:", user.fullName);
     console.log("Email:", user.email);
@@ -167,7 +167,7 @@ router.post("/login", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("❌ LOGIN ERROR:");
+    console.error(" LOGIN ERROR:");
     console.error("Error message:", error.message);
     console.error("Error stack:", error.stack);
 

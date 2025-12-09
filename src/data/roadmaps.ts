@@ -62,7 +62,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "career",
         title: "Professional Development",
-        duration: "Ongoing",
+        duration: "2-4 years",
         description: "Establish yourself in the scientific community",
         skills: [
           "Grant writing and funding acquisition",
@@ -199,7 +199,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "professional",
         title: "Professional Engineering",
-        duration: "Ongoing",
+        duration: "1-2 years",
         description: "Obtain licensure and advance your career",
         skills: [
           "FE and PE exam preparation",
@@ -268,7 +268,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "leadership",
         title: "Leadership & Specialization",
-        duration: "Ongoing",
+        duration: "2-4 years",
         description: "Advance to senior positions",
         skills: [
           "Strategic planning",
@@ -337,7 +337,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "career",
         title: "Career Advancement",
-        duration: "Ongoing",
+        duration: "2-5 years",
         description: "Build expertise and leadership",
         skills: [
           "Portfolio management",
@@ -406,7 +406,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "professional",
         title: "Professional Growth",
-        duration: "Ongoing",
+        duration: "1-3 years",
         description: "Advance skills and build career",
         skills: [
           "System design and architecture",
@@ -476,7 +476,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "business",
         title: "Agricultural Business",
-        duration: "Ongoing",
+        duration: "2-4 years",
         description: "Build a sustainable agricultural enterprise",
         skills: [
           "Marketing and distribution",
@@ -545,7 +545,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "career",
         title: "Professional Creative",
-        duration: "Ongoing",
+        duration: "1-3 years",
         description: "Establish your creative career",
         skills: [
           "Personal branding and marketing",
@@ -614,7 +614,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "licensure",
         title: "Licensure & Practice",
-        duration: "Ongoing",
+        duration: "1-2 years",
         description: "Become a licensed architect",
         skills: [
           "Pass ARE (Architect Registration Exam)",
@@ -683,7 +683,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "professional",
         title: "Professional Practice",
-        duration: "Ongoing",
+        duration: "2-4 years",
         description: "Build your career helping others",
         skills: [
           "Licensure (LCSW, LPC, etc.)",
@@ -752,7 +752,7 @@ export const roadmaps: Record<string, CareerRoadmap> = {
       {
         id: "advancement",
         title: "Career Growth",
-        duration: "Ongoing",
+        duration: "2-4 years",
         description: "Advance as educator or leader",
         skills: [
           "Master's degree or specialization",
