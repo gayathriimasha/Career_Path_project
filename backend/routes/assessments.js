@@ -4,7 +4,7 @@ const Prediction = require("../models/Prediction")
 const axios = require("axios")
 const router = express.Router()
 
-const ML_SERVICE_URL = process.env.ML_SERVICE_URL || "http://localhost:8000"
+const ML_SERVICE_URL = process.env.ML_SERVICE_URL || "http://127.0.0.1:8001"
 
 // Submit assessment
 router.post("/submit", async (req, res) => {
@@ -36,14 +36,29 @@ router.post("/submit", async (req, res) => {
 
       console.log("ML prediction successful:", predictions)
     } catch (mlError) {
-      console.error("ML service error:", mlError.message)
-      if (mlError.response) {
-        console.error("ML service response status:", mlError.response.status)
-        console.error("ML service response data:", mlError.response.data)
-      }
-      return res.status(503).json({
-        message: "ML service unavailable. Please ensure the ML service is running.",
-        error: mlError.response?.data || mlError.message
+      console.error("ML service error:", {
+        message: mlError.message,
+        code: mlError.code,
+        status: mlError.response?.status,
+        data: mlError.response?.data,
+        headers: mlError.response?.headers,
+        request: mlError.request ? true : false,
+        config: mlError.config ? {
+          url: mlError.config.url,
+          method: mlError.config.method,
+          timeout: mlError.config.timeout
+        } : undefined
+      })
+
+      // Return useful details to the client while keeping sensitive internals out
+      return res.status(502).json({
+        message: "Failed to call ML service",
+        details: {
+          message: mlError.message,
+          code: mlError.code,
+          status: mlError.response?.status,
+          data: mlError.response?.data
+        }
       })
     }
 
